@@ -7,10 +7,14 @@ import BuildAndroidConfig.test_instrumentation_runner
 import BuildAndroidConfig.version_code
 import BuildAndroidConfig.version_name
 import dependencies.BuildDependencies
+import extentions.addKotlinLibraries
+import extentions.addSharedLibraries
 
 plugins {
     id(BuildPlugins.android_application)
     kotlin(BuildPlugins.kotlin_android)
+    kotlin(BuildPlugins.kotlin_kapt)
+    id(BuildPlugins.dagger_hilt_plugin)
 }
 
 android {
@@ -75,8 +79,9 @@ android {
 
 dependencies {
 
+    addKotlinLibraries()
+    addSharedLibraries()
     BuildDependencies.run {
-        implementation(kotlin)
         implementation(app_compat)
         implementation(material_components)
         implementation(constraints_layout)

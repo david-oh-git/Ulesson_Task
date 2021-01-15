@@ -24,9 +24,16 @@
 
 package extentions
 
+import dependencies.BuildDependencies.dagger_hilt
+import dependencies.BuildDependencies.dagger_hilt_kapt
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import dependencies.TestDependencies
+import dependencies.BuildDependencies.kotlin
+import dependencies.BuildDependencies.kotlin_coroutines_android
+import dependencies.BuildDependencies.kotlin_coroutines_core
+import dependencies.BuildDependencies.timber
+import dependencies.BuildDependencies.kotlin_reflect
 
 /**
  * Add debugImplementation configuration.
@@ -118,4 +125,18 @@ fun DependencyHandler.addTestsDependencies(){
     androidTestImplementation(TestDependencies.androidx_junit_rules)
 
     androidTestRuntimeOnly(TestDependencies.junit5_engine)
+}
+
+fun DependencyHandler.addSharedLibraries() {
+    implementation(timber)
+    implementation(dagger_hilt)
+
+    kapt(dagger_hilt_kapt)
+}
+
+fun DependencyHandler.addKotlinLibraries() {
+    implementation(kotlin)
+    implementation(kotlin_reflect)
+    implementation(kotlin_coroutines_android)
+    implementation(kotlin_coroutines_core)
 }

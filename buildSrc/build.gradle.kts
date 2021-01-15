@@ -28,8 +28,10 @@ object AppPlugins {
         const val ktlint = "0.39.0"
         const val update_gradle_plugin = "0.36.0"
         const val nav_safe_args = "2.3.0"
+        const val dagger_hilt = "2.28-alpha"
     }
 
+    const val dagger_hilt = "com.google.dagger:hilt-android-gradle-plugin:${Versions.dagger_hilt}"
     const val nav_safe_args = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.nav_safe_args}"
     const val build_tools = "com.android.tools.build:gradle:${Versions.build_tools}"
     const val kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
@@ -44,6 +46,7 @@ dependencies {
     AppPlugins.run {
         implementation(build_tools)
         implementation(kotlin_gradle_plugin)
+        implementation(dagger_hilt)
         implementation(spotless)
         implementation(ktlint)
         implementation(update_gradle_plugin)

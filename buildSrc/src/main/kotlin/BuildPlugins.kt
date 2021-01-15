@@ -10,6 +10,7 @@ object BuildPlugins {
     const val navigation_safe_args = "androidx.navigation.safeargs.kotlin"
     const val ben_manes = "com.github.ben-manes.versions"
     const val update_dependencies = "plugins.update-dependencies"
+    const val dagger_hilt_plugin = "dagger.hilt.android.plugin"
 
     const val kotlin_kapt = "kapt"
     const val kotlin_android = "android"
