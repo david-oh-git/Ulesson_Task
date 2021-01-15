@@ -24,8 +24,10 @@
 package io.davidosemwota.ulessontask
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+@HiltAndroidApp
 class UlessonApp : Application() {
 
     override fun onCreate() {
