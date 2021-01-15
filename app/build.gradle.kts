@@ -64,6 +64,12 @@ android {
             isTestCoverageEnabled = BuildTypeDebug.isTestCoverageEnabled
         }
 
+        lintOptions {
+            lintConfig = rootProject.file(".lint/config.xml")
+            isCheckAllWarnings = true
+            isWarningsAsErrors = true
+        }
+
     }
 }
 
