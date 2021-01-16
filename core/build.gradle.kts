@@ -8,6 +8,9 @@ import BuildAndroidConfig.version_code
 import BuildAndroidConfig.version_name
 import extentions.addKotlinLibraries
 import extentions.addSharedLibraries
+import extentions.addUnitTestsDependencies
+import dependencies.BuildDependencies
+import extentions.addRoomDbDependencies
 
 plugins {
     id(BuildPlugins.android_library)
@@ -56,4 +59,13 @@ dependencies {
 
     addKotlinLibraries()
     addSharedLibraries()
+    addRoomDbDependencies()
+
+    BuildDependencies.run {
+        implementation(this.retrofit)
+        implementation(this.retrofit_gson)
+        implementation(this.http_logging)
+    }
+
+    addUnitTestsDependencies()
 }

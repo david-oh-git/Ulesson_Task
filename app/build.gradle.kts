@@ -9,6 +9,7 @@ import BuildAndroidConfig.version_name
 import dependencies.BuildDependencies
 import extentions.addKotlinLibraries
 import extentions.addSharedLibraries
+import Modules.core
 
 plugins {
     id(BuildPlugins.android_application)
@@ -82,6 +83,8 @@ android {
 }
 
 dependencies {
+
+    implementation( project(core) )
 
     addKotlinLibraries()
     addSharedLibraries()

@@ -34,6 +34,9 @@ import dependencies.BuildDependencies.kotlin_coroutines_android
 import dependencies.BuildDependencies.kotlin_coroutines_core
 import dependencies.BuildDependencies.timber
 import dependencies.BuildDependencies.kotlin_reflect
+import dependencies.BuildDependencies.room_db
+import dependencies.BuildDependencies.room_ktx
+import dependencies.BuildDependencies.room_compiler
 
 /**
  * Add debugImplementation configuration.
@@ -102,7 +105,20 @@ fun DependencyHandler.androidTestRuntimeOnly(dependencyNotation: String): Depend
 /**
  * Adds all test dependencies
  */
-fun DependencyHandler.addTestsDependencies(){
+fun DependencyHandler.addIntegratedTestsDependencies(){
+
+    androidTestImplementation(TestDependencies.junit5_api)
+    androidTestImplementation(TestDependencies.junit5_platform)
+    androidTestImplementation(TestDependencies.truth)
+    androidTestImplementation(TestDependencies.mockk)
+    androidTestImplementation(TestDependencies.androidx_junit_runner)
+    androidTestImplementation(TestDependencies.androidx_junit_rules)
+
+    androidTestRuntimeOnly(TestDependencies.junit5_engine)
+}
+
+fun DependencyHandler.addUnitTestsDependencies() {
+
     testImplementation(TestDependencies.junit5_api)
     testImplementation(TestDependencies.junit5_platform)
     testImplementation(TestDependencies.truth)
@@ -114,17 +130,9 @@ fun DependencyHandler.addTestsDependencies(){
     testImplementation(TestDependencies.robolectric)
     testImplementation(TestDependencies.androidx_test_core)
     testImplementation(TestDependencies.androidx_junit_runner)
+    testImplementation(TestDependencies.mock_web_server)
 
     testRuntimeOnly(TestDependencies.junit5_engine)
-
-    androidTestImplementation(TestDependencies.junit5_api)
-    androidTestImplementation(TestDependencies.junit5_platform)
-    androidTestImplementation(TestDependencies.truth)
-    androidTestImplementation(TestDependencies.mockk)
-    androidTestImplementation(TestDependencies.androidx_junit_runner)
-    androidTestImplementation(TestDependencies.androidx_junit_rules)
-
-    androidTestRuntimeOnly(TestDependencies.junit5_engine)
 }
 
 fun DependencyHandler.addSharedLibraries() {
@@ -139,4 +147,11 @@ fun DependencyHandler.addKotlinLibraries() {
     implementation(kotlin_reflect)
     implementation(kotlin_coroutines_android)
     implementation(kotlin_coroutines_core)
+}
+
+fun DependencyHandler.addRoomDbDependencies() {
+    implementation(room_db)
+    implementation(room_ktx)
+
+    kapt(room_compiler)
 }
