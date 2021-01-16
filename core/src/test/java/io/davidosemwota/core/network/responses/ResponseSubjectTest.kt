@@ -31,7 +31,7 @@ import io.davidosemwota.core.util.lessonName
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-internal class SubjectTest {
+internal class ResponseSubjectTest {
 
     @Test
     @DisplayName("When a chapter object is created, it should hold correct attributes")
@@ -44,7 +44,7 @@ internal class SubjectTest {
         val chapters = getChapters(numberOfChapters)
 
         // Act: create subject object
-        val subject = Subject(
+        val subject = ResponseSubject(
             id, name, icon, chapters
         )
 

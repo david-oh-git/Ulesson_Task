@@ -33,7 +33,7 @@ import io.davidosemwota.core.util.subjectId
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-internal class LessonTest {
+internal class ResponseLessonTest {
 
     @Test
     @DisplayName("When a lesson object is created, it should hold correct attributes")
@@ -47,7 +47,7 @@ internal class LessonTest {
         val chapterId = chapterId
 
         // Act: create lesson object
-        val lesson = Lesson(
+        val lesson = ResponseLesson(
             id = id,
             name = name,
             icon = icon,

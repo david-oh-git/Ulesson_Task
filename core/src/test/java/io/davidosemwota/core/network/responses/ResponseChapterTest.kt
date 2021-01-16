@@ -23,15 +23,32 @@
  */
 package io.davidosemwota.core.network.responses
 
-/**
- * Response format for a [Chapter] from the API.
- *
- * @param id The chapter id.
- * @param name The name of the chapter.
- * @param lessons A list of [Lesson]s.
- */
-data class Chapter(
-    val id: Int,
-    val name: String,
-    val lessons: List<Lesson>
-)
+import com.google.common.truth.Truth.assertThat
+import io.davidosemwota.core.util.getLessons
+import io.davidosemwota.core.util.id
+import io.davidosemwota.core.util.lessonName
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+
+internal class ResponseChapterTest {
+
+    @Test
+    @DisplayName("When a chapter object is created, it should hold correct attributes")
+    fun createChapter_getCorrectAttributes() {
+        // Arrange: create attributes
+        val id = id
+        val name = lessonName
+        val lessons = getLessons(3)
+
+        // Act: create chapter object
+        val chapter = ResponseChapter(
+            id, name, lessons
+        )
+
+        // Assert: Attributes values are accurate
+        assertThat(id).isEqualTo(chapter.id)
+        assertThat(name).isEqualTo(chapter.name)
+        assertThat(lessons.isEmpty()).isEqualTo(chapter.lessons.isEmpty())
+        assertThat(lessons.size).isEqualTo(chapter.lessons.size)
+    }
+}

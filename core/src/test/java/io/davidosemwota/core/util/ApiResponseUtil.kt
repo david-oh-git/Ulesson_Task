@@ -23,9 +23,9 @@
  */
 package io.davidosemwota.core.util
 
-import io.davidosemwota.core.network.responses.Chapter
-import io.davidosemwota.core.network.responses.Lesson
-import io.davidosemwota.core.network.responses.Subject
+import io.davidosemwota.core.network.responses.ResponseChapter
+import io.davidosemwota.core.network.responses.ResponseLesson
+import io.davidosemwota.core.network.responses.ResponseSubject
 
 val id
     get() = listOf(22, 63, 456, 11, 71, 28, 32, 56).random()
@@ -63,7 +63,7 @@ val mediaUrl
         "https://hellomedia/images/kido_pt2.mp4"
     ).random()
 
-fun getLesson(): Lesson = Lesson(
+fun getLesson(): ResponseLesson = ResponseLesson(
     id = id,
     name = lessonName,
     icon = icon,
@@ -72,27 +72,27 @@ fun getLesson(): Lesson = Lesson(
     subjectId = subjectId
 )
 
-fun getLessons(numberOfLessons: Int = 2): List<Lesson> {
+fun getLessons(numberOfLessons: Int = 2): List<ResponseLesson> {
     return mutableListOf(numberOfLessons).map { getLesson() }
 }
 
-fun getChapter(numberOfLessons: Int = 2): Chapter = Chapter(
+fun getChapter(numberOfLessons: Int = 2): ResponseChapter = ResponseChapter(
     id = id,
     name = lessonName,
     getLessons(numberOfLessons)
 )
 
-fun getChapters(numberOfChapters: Int = 2): List<Chapter> {
+fun getChapters(numberOfChapters: Int = 2): List<ResponseChapter> {
     return mutableListOf(numberOfChapters).map { getChapter() }
 }
 
-fun getSubject(numberOfChapters: Int = 2): Subject = Subject(
+fun getSubject(numberOfChapters: Int = 2): ResponseSubject = ResponseSubject(
     id = id,
     name = lessonName,
     chapters = getChapters(numberOfChapters),
     icon = icon
 )
 
-fun getSubjects(numberOfSubjects: Int = 2): List<Subject> {
+fun getSubjects(numberOfSubjects: Int = 2): List<ResponseSubject> {
     return mutableListOf(numberOfSubjects).map { getSubject() }
 }

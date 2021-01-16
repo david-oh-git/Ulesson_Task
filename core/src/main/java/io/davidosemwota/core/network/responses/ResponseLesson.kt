@@ -23,17 +23,25 @@
  */
 package io.davidosemwota.core.network.responses
 
+import com.google.gson.annotations.SerializedName
+
 /**
- * Response format for a subject from the API.
+ * Response format for a [ResponseLesson] from the APi.
  *
- * @param id The id of the subject.
- * @param name The subject name.
- * @param icon The url for the subject's icon.
- * @param chapters A list of [Chapter]s.
+ * @param id The lesson's id.
+ * @param name The lesson's name.
+ * @param icon The lesson's icon url.
+ * @param mediaUrl The lesson's video url.
+ * @param chapterId The associated chapter's id.
  */
-data class Subject(
-    val id: Int?,
-    val name: String?,
-    val icon: String?,
-    val chapters: List<Chapter>
+data class ResponseLesson(
+    val id: Int,
+    val name: String,
+    val icon: String,
+    @SerializedName("media_url")
+    val mediaUrl: String,
+    @SerializedName("subject_id")
+    val subjectId: Int,
+    @SerializedName("chapter_id")
+    val chapterId: Int
 )

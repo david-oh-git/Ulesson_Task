@@ -28,10 +28,10 @@ package io.davidosemwota.core.network.responses
  *
  * @param status The status of the response. eg success
  * @param message The message from API.
- * @param subjects A list of [Subject]s from the API.
+ * @param subjects A list of [ResponseSubject]s from the API.
  */
 data class ResponseData(
     val status: String?,
     val message: String?,
-    val subjects: List<Subject>?
+    val subjects: List<ResponseSubject>?
 )
