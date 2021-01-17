@@ -21,15 +21,11 @@ plugins {
 
 android {
     compileSdkVersion(compile_sdk_version)
-    buildToolsVersion(build_tools_version)
 
     defaultConfig {
         minSdkVersion(minimum_sdk_version)
         targetSdkVersion(target_sdk_version)
-        versionCode = version_code
-        versionName = version_name
 
-        testInstrumentationRunner = test_instrumentation_runner
     }
 
     kotlinOptions {

@@ -23,6 +23,9 @@
  */
 package io.davidosemwota.core.util
 
+import io.davidosemwota.core.data.Chapter
+import io.davidosemwota.core.data.Lesson
+import io.davidosemwota.core.data.Subject
 import io.davidosemwota.core.network.responses.ResponseChapter
 import io.davidosemwota.core.network.responses.ResponseLesson
 import io.davidosemwota.core.network.responses.ResponseSubject
@@ -31,10 +34,10 @@ val id
     get() = listOf(22, 63, 456, 11, 71, 28, 32, 56).random()
 
 val subjectId
-    get() = listOf(22, 63, 456, 11, 71, 28, 32, 56).random()
+    get() = listOf(213, 678, 945, 235, 654, 567, 234, 134, 234, 256, 324, 390, 321).random()
 
 val chapterId
-    get() = listOf(22, 63, 456, 11, 71, 28, 32, 56).random()
+    get() = listOf(456, 12, 345, 67, 23, 50, 431, 101, 79, 91, 70, 39, 42, 149).random()
 
 val lessonName
     get() = listOf(
@@ -42,6 +45,16 @@ val lessonName
         "Kido for dummies",
         "Gotei 13 Combat Fundamentals",
         "Katana for beginners"
+    ).random()
+
+val subjectName
+    get() = listOf(
+        "Combat",
+        "History",
+        "Kido",
+        "Peotry",
+        "Music",
+        "Science"
     ).random()
 
 val icon
@@ -63,7 +76,7 @@ val mediaUrl
         "https://hellomedia/images/kido_pt2.mp4"
     ).random()
 
-fun getLesson(): ResponseLesson = ResponseLesson(
+fun getResponseLesson(): ResponseLesson = ResponseLesson(
     id = id,
     name = lessonName,
     icon = icon,
@@ -72,27 +85,60 @@ fun getLesson(): ResponseLesson = ResponseLesson(
     subjectId = subjectId
 )
 
-fun getLessons(numberOfLessons: Int = 2): List<ResponseLesson> {
-    return mutableListOf(numberOfLessons).map { getLesson() }
+fun getResponseLessons(numberOfLessons: Int = 2): List<ResponseLesson> {
+    return mutableListOf(numberOfLessons).map { getResponseLesson() }
 }
 
-fun getChapter(numberOfLessons: Int = 2): ResponseChapter = ResponseChapter(
+fun getResponseChapter(numberOfLessons: Int = 2): ResponseChapter = ResponseChapter(
     id = id,
     name = lessonName,
-    getLessons(numberOfLessons)
+    getResponseLessons(numberOfLessons)
 )
 
-fun getChapters(numberOfChapters: Int = 2): List<ResponseChapter> {
-    return mutableListOf(numberOfChapters).map { getChapter() }
+fun getResponseChapters(numberOfChapters: Int = 2): List<ResponseChapter> {
+    return mutableListOf(numberOfChapters).map { getResponseChapter() }
 }
 
-fun getSubject(numberOfChapters: Int = 2): ResponseSubject = ResponseSubject(
+fun getResponseSubject(numberOfChapters: Int = 2): ResponseSubject = ResponseSubject(
     id = id,
     name = lessonName,
-    chapters = getChapters(numberOfChapters),
+    chapters = getResponseChapters(numberOfChapters),
     icon = icon
 )
 
-fun getSubjects(numberOfSubjects: Int = 2): List<ResponseSubject> {
-    return mutableListOf(numberOfSubjects).map { getSubject() }
+fun getResponseSubjects(numberOfSubjects: Int = 2): List<ResponseSubject> {
+    return mutableListOf(numberOfSubjects).map { getResponseSubject() }
 }
+
+fun getChapter(): Chapter = Chapter(
+    id = id,
+    chapterId = chapterId,
+    subjectId = subjectId,
+    subjectName = subjectName,
+    name = lessonName
+)
+
+fun getChapters(numberOfChapters: Int = 2): List<Chapter> =
+    mutableListOf(numberOfChapters).map { getChapter() }
+
+fun getLesson(): Lesson = Lesson(
+    id = id,
+    name = lessonName,
+    subjectId = subjectId,
+    icon = icon,
+    chapterId = chapterId,
+    lessonId = id,
+    mediaUrl = mediaUrl
+)
+
+fun getLessons(numberOfLessons: Int = 2): List<Lesson> =
+    mutableListOf(numberOfLessons).map { getLesson() }
+
+fun getSubject(): Subject = Subject(
+    subjectId = subjectId,
+    icon = icon,
+    name = subjectName
+)
+
+fun getSubjects(numberOfSubjects: Int = 2): List<Subject> =
+    mutableListOf(numberOfSubjects).map { getSubject() }

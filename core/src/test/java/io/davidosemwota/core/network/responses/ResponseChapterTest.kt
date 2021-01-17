@@ -24,7 +24,7 @@
 package io.davidosemwota.core.network.responses
 
 import com.google.common.truth.Truth.assertThat
-import io.davidosemwota.core.util.getLessons
+import io.davidosemwota.core.util.getResponseLessons
 import io.davidosemwota.core.util.id
 import io.davidosemwota.core.util.lessonName
 import org.junit.jupiter.api.DisplayName
@@ -38,7 +38,7 @@ internal class ResponseChapterTest {
         // Arrange: create attributes
         val id = id
         val name = lessonName
-        val lessons = getLessons(3)
+        val lessons = getResponseLessons(3)
 
         // Act: create chapter object
         val chapter = ResponseChapter(

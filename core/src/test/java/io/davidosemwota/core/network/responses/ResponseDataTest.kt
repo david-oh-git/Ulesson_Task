@@ -24,7 +24,7 @@
 package io.davidosemwota.core.network.responses
 
 import com.google.common.truth.Truth.assertThat
-import io.davidosemwota.core.util.getSubjects
+import io.davidosemwota.core.util.getResponseSubjects
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -37,7 +37,7 @@ internal class ResponseDataTest {
         // Arrange: create attributes
         val status = "successful"
         val message = "successful message"
-        val subjects = getSubjects(3)
+        val subjects = getResponseSubjects(3)
 
         // Act: create responseData object
         val response = ResponseData(

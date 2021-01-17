@@ -24,7 +24,7 @@
 package io.davidosemwota.core.network.responses
 
 import com.google.common.truth.Truth.assertThat
-import io.davidosemwota.core.util.getChapters
+import io.davidosemwota.core.util.getResponseChapters
 import io.davidosemwota.core.util.icon
 import io.davidosemwota.core.util.id
 import io.davidosemwota.core.util.lessonName
@@ -41,7 +41,7 @@ internal class ResponseSubjectTest {
         val name = lessonName
         val icon = icon
         val numberOfChapters = 3
-        val chapters = getChapters(numberOfChapters)
+        val chapters = getResponseChapters(numberOfChapters)
 
         // Act: create subject object
         val subject = ResponseSubject(
