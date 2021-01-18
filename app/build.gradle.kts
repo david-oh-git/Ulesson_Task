@@ -80,6 +80,12 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    lintOptions {
+        lintConfig = rootProject.file(".lint/config.xml")
+        isCheckAllWarnings = true
+        isWarningsAsErrors = false
+    }
 }
 
 dependencies {
