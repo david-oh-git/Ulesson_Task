@@ -24,16 +24,15 @@
 package io.davidosemwota.core.data.source.remote
 
 import io.davidosemwota.core.data.UlessonRemoteSource
-import io.davidosemwota.core.mappers.SubjectListMapper
 import io.davidosemwota.core.network.Result
 import io.davidosemwota.core.network.UlessonService
 import io.davidosemwota.core.network.responses.ResponseData
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import timber.log.Timber
-import javax.inject.Inject
 
 class UlessonRemoteSourceImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,

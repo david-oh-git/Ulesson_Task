@@ -1,3 +1,26 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) $today.day/$today.month/2021 $today.hour24:$today.minute   David Osemwota.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package io.davidosemwota.core.data
 
 import io.davidosemwota.core.data.source.local.ChapterDao
@@ -8,12 +31,12 @@ import io.davidosemwota.core.mappers.LessonListMapper
 import io.davidosemwota.core.mappers.SubjectListMapper
 import io.davidosemwota.core.network.NetworkState
 import io.davidosemwota.core.network.responses.ResponseData
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class UlessonRepositoryImpl @Inject constructor(
     private val remoteSource: UlessonRemoteSource,
@@ -27,7 +50,7 @@ class UlessonRepositoryImpl @Inject constructor(
 
     override val networkStateFlow = MutableStateFlow<NetworkState>(NetworkState.Loading)
 
-    override suspend fun saveAllSubjects(subjects: List<Subject>) = withContext(ioDispatcher){
+    override suspend fun saveAllSubjects(subjects: List<Subject>) = withContext(ioDispatcher) {
         subjectDao.insertAll(subjects)
     }
 
@@ -47,9 +70,9 @@ class UlessonRepositoryImpl @Inject constructor(
         networkStateFlow.value = NetworkState.Loading
         val apiResponse = remoteSource.getLatestDateFromApi()
 
-        if (apiResponse == null ){
+        if (apiResponse == null) {
             networkStateFlow.value = NetworkState.Error
-        }else{
+        } else {
             parseResponseData(apiResponse)
             parseResponseSubjects(apiResponse)
             networkStateFlow.value = NetworkState.Success()
@@ -67,11 +90,11 @@ class UlessonRepositoryImpl @Inject constructor(
 
         val allChapters = mutableListOf<Chapter>()
         val allLessons = mutableListOf<Lesson>()
-        for (responseSubject in responseData.subjects){
+        for (responseSubject in responseData.subjects) {
             val chapterMapper = ChapterMapper(responseSubject.id, responseSubject.name)
             val chapters = responseSubject.chapters.map { chapterMapper.transform(it) }
             responseSubject.chapters.map {
-                allLessons.addAll( lessonListMapper.transform(it) )
+                allLessons.addAll(lessonListMapper.transform(it))
             }
             allChapters.addAll(chapters)
         }
@@ -94,5 +117,4 @@ class UlessonRepositoryImpl @Inject constructor(
         lessonDao.deleteAll()
         lessonDao.insertAll(lessons)
     }
-
 }
