@@ -21,19 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.core.network.responses
+package io.davidosemwota.core.data
 
-/**
- * Response format for a subject from the API.
- *
- * @param id The id of the subject.
- * @param name The subject name.
- * @param icon The url for the subject's icon.
- * @param chapters A list of [ResponseChapter]s.
- */
-data class ResponseSubject(
-    val id: Int,
-    val name: String,
-    val icon: String,
-    val chapters: List<ResponseChapter>
-)
+interface UlessonRemoteSource {
+
+    suspend fun getSubjects(): List<Subject>
+}

@@ -33,5 +33,5 @@ package io.davidosemwota.core.network.responses
 data class ResponseData(
     val status: String?,
     val message: String?,
-    val subjects: List<ResponseSubject>?
+    val subjects: List<ResponseSubject>
 )

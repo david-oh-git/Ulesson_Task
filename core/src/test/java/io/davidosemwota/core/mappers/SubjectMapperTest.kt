@@ -21,19 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.core.network.responses
+package io.davidosemwota.core.mappers
 
-/**
- * Response format for a subject from the API.
- *
- * @param id The id of the subject.
- * @param name The subject name.
- * @param icon The url for the subject's icon.
- * @param chapters A list of [ResponseChapter]s.
- */
-data class ResponseSubject(
-    val id: Int,
-    val name: String,
-    val icon: String,
-    val chapters: List<ResponseChapter>
-)
+import com.google.common.truth.Truth.assertThat
+import io.davidosemwota.core.network.responses.ResponseSubject
+import io.davidosemwota.core.util.icon
+import io.davidosemwota.core.util.id
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.jupiter.api.Test
+
+internal class SubjectMapperTest {
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `Transform ResponseSubject to Subject, confirm accurate attributes`() = runBlockingTest {
+        val subjectMapper = SubjectMapper()
+        val responseSubject = ResponseSubject(
+            icon = icon,
+            name = "English",
+            id = id,
+            chapters = emptyList()
+        )
+
+        val subject = subjectMapper.transform(responseSubject)
+
+        assertThat(responseSubject.icon).isEqualTo(subject.icon)
+        assertThat(responseSubject.id).isEqualTo(subject.subjectId)
+        assertThat(responseSubject.name).isEqualTo(subject.name)
+    }
+}

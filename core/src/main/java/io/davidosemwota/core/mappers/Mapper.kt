@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) $today.day/$today.month/2021 $today.hour24:$today.minute   David Osemwota.
+ * Copyright (c) $today.day/$today.month/2020 $today.hour24:$today.minute   David Osemwota.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,19 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.core.network.responses
+package io.davidosemwota.core.mappers
 
 /**
- * Response format for a subject from the API.
- *
- * @param id The id of the subject.
- * @param name The subject name.
- * @param icon The url for the subject's icon.
- * @param chapters A list of [ResponseChapter]s.
+ *A base helper to transform an input to a desired output.
  */
-data class ResponseSubject(
-    val id: Int,
-    val name: String,
-    val icon: String,
-    val chapters: List<ResponseChapter>
-)
+interface Mapper<F, T> {
+
+    /**
+     * @param from Object to be transformed.
+     * @return The desired output.
+     */
+    suspend fun transform(from: F): T
+}

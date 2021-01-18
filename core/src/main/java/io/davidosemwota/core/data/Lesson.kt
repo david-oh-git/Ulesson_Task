@@ -31,7 +31,7 @@ import androidx.room.PrimaryKey
     tableName = "lessons"
 )
 data class Lesson(
-    @PrimaryKey val lessonId: Int,
+    @PrimaryKey(autoGenerate = true) val lessonId: Int,
     @ColumnInfo val id: Int,
     @ColumnInfo val name: String,
     @ColumnInfo val icon: String,
