@@ -23,7 +23,9 @@
  */
 package io.davidosemwota.core.data
 
+import io.davidosemwota.core.network.responses.ResponseData
+
 interface UlessonRemoteSource {
 
-    suspend fun getSubjects(): List<Subject>
+    suspend fun getLatestDateFromApi(): ResponseData?
 }

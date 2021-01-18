@@ -23,33 +23,30 @@
  */
 package io.davidosemwota.core.data.source.remote
 
-import io.davidosemwota.core.data.Subject
 import io.davidosemwota.core.data.UlessonRemoteSource
 import io.davidosemwota.core.mappers.SubjectListMapper
 import io.davidosemwota.core.network.Result
 import io.davidosemwota.core.network.UlessonService
-import javax.inject.Inject
+import io.davidosemwota.core.network.responses.ResponseData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import timber.log.Timber
+import javax.inject.Inject
 
 class UlessonRemoteSourceImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-    private val ulessonService: UlessonService,
-    private val subjectListMapper: SubjectListMapper
+    private val ulessonService: UlessonService
 ) : UlessonRemoteSource {
 
-    override suspend fun getSubjects(): List<Subject> = withContext(ioDispatcher) {
+    override suspend fun getLatestDateFromApi(): ResponseData? = withContext(ioDispatcher) {
         val apiResponse = safeApiCall(
             call = { ulessonService.getAllSubjects() },
             errorMsg = "Error fetching data ..."
         )
 
-        return@withContext apiResponse?.data?.let {
-            subjectListMapper.transform(it)
-        } ?: emptyList()
+        return@withContext apiResponse?.data
     }
 
     private suspend fun <T : Any> safeApiCall(
