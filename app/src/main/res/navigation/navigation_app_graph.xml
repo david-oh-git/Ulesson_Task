@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="io.davidosemwota.home.MainFragment"
+        android:name="io.davidosemwota.home.HomeFragment"
         app:moduleName="Ulesson_Task.features.home"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_home" />
 </navigation>

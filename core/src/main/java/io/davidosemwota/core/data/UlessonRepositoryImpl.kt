@@ -70,12 +70,18 @@ class UlessonRepositoryImpl @Inject constructor(
         networkStateFlow.value = NetworkState.Loading
         val apiResponse = remoteSource.getLatestDateFromApi()
 
-        if (apiResponse == null) {
-            networkStateFlow.value = NetworkState.Error
-        } else {
-            parseResponseData(apiResponse)
-            parseResponseSubjects(apiResponse)
-            networkStateFlow.value = NetworkState.Success()
+        when {
+            apiResponse == null -> {
+                networkStateFlow.value = NetworkState.Error
+            }
+            apiResponse.subjects.isEmpty() -> {
+                networkStateFlow.value = NetworkState.Success(true)
+            }
+            else -> {
+                parseResponseData(apiResponse)
+                parseResponseSubjects(apiResponse)
+                networkStateFlow.value = NetworkState.Success()
+            }
         }
     }
 

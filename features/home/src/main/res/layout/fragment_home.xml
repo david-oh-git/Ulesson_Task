@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+    <include
+        android:id="@+id/include_home_loading"
+        layout="@layout/view_home_loading" />
+
+    <include
+        android:id="@+id/include_home_error"
+        layout="@layout/view_home_error" />
+
+    <include
+        android:id="@+id/include_home_empty"
+        layout="@layout/view_home_empty" />
+
+    <include
+        android:id="@+id/include_home_loaded"
+        layout="@layout/view_home_loaded" />
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

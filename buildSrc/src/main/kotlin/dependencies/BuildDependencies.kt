@@ -1,3 +1,4 @@
+@file:Suppress("SpellCheckingInspection")
 package dependencies
 
 /**
@@ -5,6 +6,7 @@ package dependencies
  */
 object BuildDependencies {
 
+    const val swipe_refresh_layout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipe_refresh_layout}"
     const val play_core = "com.google.android.play:core:${Versions.play_core}"
     const val fragment_ktx = "androidx.fragment:fragment-ktx:${Versions.fragment_ktx}"
     const val dagger_hilt_kapt = "com.google.dagger:hilt-android-compiler:${Versions.dagger_hilt}"
@@ -50,5 +52,6 @@ object BuildDependencies {
         const val dagger_hilt = "2.28-alpha"
         const val fragment_ktx = "1.2.5"
         const val play_core = "1.8.0"
+        const val swipe_refresh_layout = "1.1.0"
     }
 }

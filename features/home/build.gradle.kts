@@ -2,12 +2,10 @@ import BuildAndroidConfig.compile_sdk_version
 import BuildAndroidConfig.minimum_sdk_version
 import BuildAndroidConfig.target_sdk_version
 import BuildAndroidConfig.test_instrumentation_runner
-import BuildAndroidConfig.version_code
-import BuildAndroidConfig.version_name
-import extentions.addKotlinLibraries
-import extentions.addSharedLibraries
 import dependencies.BuildDependencies
+import extentions.addKotlinLibraries
 import extentions.addNavigationLibraries
+import extentions.addSharedLibraries
 
 plugins {
 //    id("com.android.dynamic-feature")
@@ -65,6 +63,8 @@ android {
 
 dependencies {
 //    implementation(project(Modules.app))
+    implementation( project(Modules.ui))
+    implementation( project(Modules.core) )
 
     addKotlinLibraries()
     addSharedLibraries()
@@ -72,7 +72,9 @@ dependencies {
     BuildDependencies.run {
         implementation(fragment_ktx)
         implementation(app_compat)
+        implementation(constraints_layout)
         implementation(material_components)
+        implementation(swipe_refresh_layout)
         implementation(recycler_view)
         implementation(livedata_ktx)
     }
