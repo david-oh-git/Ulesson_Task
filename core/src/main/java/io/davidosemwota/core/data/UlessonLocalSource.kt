@@ -21,16 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.core.di
+package io.davidosemwota.core.data
 
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
-import io.davidosemwota.core.data.UlessonRepository
+import kotlinx.coroutines.flow.Flow
 
-@EntryPoint
-@InstallIn(ApplicationComponent::class)
-interface CoreComponent {
+interface UlessonLocalSource {
 
-    val repository: UlessonRepository
+    suspend fun saveAllSubjects(subjects: List<Subject>)
+
+    suspend fun saveAllChapters(chapters: List<Chapter>)
+
+    suspend fun saveLessons(lessons: List<Lesson>)
+
+    suspend fun saveChapter(chapter: Chapter)
+
+    suspend fun saveLesson(lesson: Lesson)
+
+    suspend fun deleteAllSubjects()
+
+    suspend fun deleteAllChapters()
+
+    suspend fun deleteAllLessons()
+
+    fun getSubjects(): Flow<List<Subject>>
 }

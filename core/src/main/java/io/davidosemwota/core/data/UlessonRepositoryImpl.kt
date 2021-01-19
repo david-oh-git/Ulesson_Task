@@ -23,9 +23,6 @@
  */
 package io.davidosemwota.core.data
 
-import io.davidosemwota.core.data.source.local.ChapterDao
-import io.davidosemwota.core.data.source.local.LessonDao
-import io.davidosemwota.core.data.source.local.SubjectDao
 import io.davidosemwota.core.mappers.ChapterMapper
 import io.davidosemwota.core.mappers.LessonListMapper
 import io.davidosemwota.core.mappers.SubjectListMapper
@@ -40,10 +37,8 @@ import kotlinx.coroutines.withContext
 
 class UlessonRepositoryImpl @Inject constructor(
     private val remoteSource: UlessonRemoteSource,
+    private val localSource: UlessonLocalSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-    private val subjectDao: SubjectDao,
-    private val chapterDao: ChapterDao,
-    private val lessonDao: LessonDao,
     private val subjectListMapper: SubjectListMapper,
     private val lessonListMapper: LessonListMapper
 ) : UlessonRepository {
@@ -51,19 +46,19 @@ class UlessonRepositoryImpl @Inject constructor(
     override val networkStateFlow = MutableStateFlow<NetworkState>(NetworkState.Loading)
 
     override suspend fun saveAllSubjects(subjects: List<Subject>) = withContext(ioDispatcher) {
-        subjectDao.insertAll(subjects)
+        localSource.saveAllSubjects(subjects)
     }
 
     override suspend fun saveChapter(chapter: Chapter) = withContext(ioDispatcher) {
-        chapterDao.insert(chapter)
+        localSource.saveChapter(chapter)
     }
 
     override suspend fun saveLesson(lesson: Lesson) = withContext(ioDispatcher) {
-        lessonDao.insert(lesson)
+        localSource.saveLesson(lesson)
     }
 
     override fun getSubjects(): Flow<List<Subject>> {
-        return subjectDao.getSubjects()
+        return localSource.getSubjects()
     }
 
     override suspend fun updateDataFromApi(): Unit = withContext(ioDispatcher) {
@@ -110,17 +105,17 @@ class UlessonRepositoryImpl @Inject constructor(
     }
 
     private suspend fun saveLatestSubjects(subjects: List<Subject>) = withContext(ioDispatcher) {
-        subjectDao.deleteAll()
-        subjectDao.insertAll(subjects)
+        localSource.deleteAllSubjects()
+        localSource.saveAllSubjects(subjects)
     }
 
     private suspend fun saveLatestChapters(chapters: List<Chapter>) = withContext(ioDispatcher) {
-        chapterDao.deleteAll()
-        chapterDao.insertAll(chapters)
+        localSource.deleteAllChapters()
+        localSource.saveAllChapters(chapters)
     }
 
     private suspend fun saveLatestLessons(lessons: List<Lesson>) = withContext(ioDispatcher) {
-        lessonDao.deleteAll()
-        lessonDao.insertAll(lessons)
+        localSource.deleteAllLessons()
+        localSource.saveLessons(lessons)
     }
 }

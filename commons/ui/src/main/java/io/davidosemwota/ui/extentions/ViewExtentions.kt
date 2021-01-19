@@ -21,16 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.core.di
+package io.davidosemwota.ui.extentions
 
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
-import io.davidosemwota.core.data.UlessonRepository
+import android.view.View
 
-@EntryPoint
-@InstallIn(ApplicationComponent::class)
-interface CoreComponent {
-
-    val repository: UlessonRepository
-}
+var View.visible
+    get() = visibility == View.VISIBLE
+    set(value) {
+        visibility = if (value) View.VISIBLE else View.GONE
+    }

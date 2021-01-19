@@ -28,15 +28,69 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import io.davidosemwota.home.databinding.FragmentHomeBinding
+import io.davidosemwota.home.main.HomeViewModel
+import io.davidosemwota.home.main.HomeViewState
+import io.davidosemwota.ui.extentions.observe
+import io.davidosemwota.ui.extentions.visible
+import javax.inject.Inject
 
 class HomeFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel: HomeViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        observe(viewModel.state, ::onViewStateChange)
+    }
+
+    private fun onViewStateChange(viewState: HomeViewState) {
+        when (viewState) {
+            HomeViewState.Empty -> {
+                binding.includeHomeEmpty.root.visible = true
+                binding.includeHomeLoading.root.visible = false
+                binding.includeHomeLoaded.root.visible = false
+                binding.includeHomeError.root.visible = false
+            }
+            HomeViewState.Error -> {
+                binding.includeHomeError.root.visible = true
+                binding.includeHomeEmpty.root.visible = false
+                binding.includeHomeLoading.root.visible = false
+                binding.includeHomeLoaded.root.visible = false
+            }
+            HomeViewState.Loaded -> {
+                binding.includeHomeLoaded.root.visible = true
+                binding.includeHomeError.root.visible = false
+                binding.includeHomeEmpty.root.visible = false
+                binding.includeHomeLoading.root.visible = false
+            }
+            HomeViewState.Loading -> {
+                binding.includeHomeLoading.root.visible = true
+                binding.includeHomeEmpty.root.visible = false
+                binding.includeHomeLoaded.root.visible = false
+                binding.includeHomeError.root.visible = false
+            }
+            HomeViewState.Refreshing -> {
+            }
+        }
     }
 }
