@@ -23,13 +23,30 @@
  */
 package io.davidosemwota.core.di.modules
 
+import android.content.Context
+import androidx.room.Room
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
+import io.davidosemwota.core.data.UlessonLocalSource
+import io.davidosemwota.core.data.UlessonRemoteSource
 import io.davidosemwota.core.data.UlessonRepository
 import io.davidosemwota.core.data.UlessonRepositoryImpl
+import io.davidosemwota.core.data.source.local.ChapterDao
+import io.davidosemwota.core.data.source.local.LessonDao
+import io.davidosemwota.core.data.source.local.SubjectDao
+import io.davidosemwota.core.data.source.local.UlessonDatabase
+import io.davidosemwota.core.data.source.local.UlessonLocalSourceImpl
+import io.davidosemwota.core.data.source.remote.UlessonRemoteSourceImpl
+import io.davidosemwota.core.mappers.LessonListMapper
+import io.davidosemwota.core.mappers.LessonMapper
+import io.davidosemwota.core.mappers.SubjectListMapper
+import io.davidosemwota.core.mappers.SubjectMapper
+import io.davidosemwota.core.network.UlessonApiFactory
+import io.davidosemwota.core.network.UlessonService
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -41,10 +58,61 @@ interface CoreModuleBinds {
     @get:Binds
     val UlessonRepositoryImpl.repository: UlessonRepository
 
+    @get:Binds
+    val UlessonLocalSourceImpl.localSource: UlessonLocalSource
+
+    @get:Binds
+    val UlessonRemoteSourceImpl.remoteSource: UlessonRemoteSource
+
     companion object {
 
         @Provides
         @Singleton
         fun provideCoroutineDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+        @Provides
+        @Singleton
+        fun provideSubjectDao(@ApplicationContext context: Context): SubjectDao =
+            provideRoomDatabase(context).subjectDao()
+
+        @Provides
+        @Singleton
+        fun provideChapterDao(@ApplicationContext context: Context): ChapterDao =
+            provideRoomDatabase(context).chapterDao()
+
+        @Provides
+        @Singleton
+        fun provideLessonDao(@ApplicationContext context: Context): LessonDao =
+            provideRoomDatabase(context).lessonDao()
+
+        @Provides
+        @Singleton
+        fun provideUlessonRetrofitService(): UlessonService =
+            UlessonApiFactory.provideUlessonApiService()
+
+        @Provides
+        @Singleton
+        fun provideSubjectMapper(): SubjectMapper = SubjectMapper()
+
+        @Provides
+        @Singleton
+        fun provideLessonMapper(): LessonMapper = LessonMapper()
+
+        @Provides
+        @Singleton
+        fun provideSubjectListMapper(subjectMapper: SubjectMapper): SubjectListMapper =
+            SubjectListMapper(subjectMapper)
+
+        @Provides
+        @Singleton
+        fun provideLessonListMapper(lessonMapper: LessonMapper): LessonListMapper =
+            LessonListMapper(lessonMapper)
+
+        private fun provideRoomDatabase(context: Context): UlessonDatabase =
+            Room.databaseBuilder(
+                context.applicationContext,
+                UlessonDatabase::class.java,
+                "ulesson.db"
+            ).build()
     }
 }

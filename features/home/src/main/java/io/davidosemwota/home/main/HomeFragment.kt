@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.home
+package io.davidosemwota.home.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -31,8 +31,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import io.davidosemwota.home.databinding.FragmentHomeBinding
-import io.davidosemwota.home.main.HomeViewModel
-import io.davidosemwota.home.main.HomeViewState
+import io.davidosemwota.home.main.di.inject
 import io.davidosemwota.ui.extentions.observe
 import io.davidosemwota.ui.extentions.visible
 import javax.inject.Inject
@@ -46,6 +45,12 @@ class HomeFragment : Fragment() {
     }
 
     private lateinit var binding: FragmentHomeBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,6 +69,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun onViewStateChange(viewState: HomeViewState) {
+
+        binding.swipeRefreshLayout.isRefreshing = viewState.isRefreshing()
         when (viewState) {
             HomeViewState.Empty -> {
                 binding.includeHomeEmpty.root.visible = true

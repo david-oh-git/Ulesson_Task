@@ -82,16 +82,16 @@ android {
         isWarningsAsErrors = false
     }
 
-//    dynamicFeatures = mutableSetOf(
-//        Modules.home
-//    )
+    dynamicFeatures = mutableSetOf(
+        Modules.home
+    )
 }
 
 dependencies {
     implementation( fileTree( mapOf( "dir" to "libs", "include" to  listOf("*.jar")  )))
 
-
-    implementation( project(Modules.home))
+//    implementation( project(Modules.home))
+    implementation( project(core))
 
     addKotlinLibraries()
     addSharedLibraries()

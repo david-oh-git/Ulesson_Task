@@ -8,8 +8,8 @@ import extentions.addNavigationLibraries
 import extentions.addSharedLibraries
 
 plugins {
-//    id("com.android.dynamic-feature")
-    id(BuildPlugins.android_library)
+    id("com.android.dynamic-feature")
+//    id(BuildPlugins.android_library)
     kotlin(BuildPlugins.kotlin_android)
     kotlin(BuildPlugins.kotlin_kapt)
     id("kotlin-android")
@@ -20,7 +20,6 @@ android {
     defaultConfig {
         minSdkVersion(minimum_sdk_version)
         targetSdkVersion(target_sdk_version)
-//        applicationId = "io.davidosemwota.home"
 
         testInstrumentationRunner = test_instrumentation_runner
     }
@@ -62,7 +61,7 @@ android {
 }
 
 dependencies {
-//    implementation(project(Modules.app))
+    implementation(project(Modules.app))
     implementation( project(Modules.ui))
     implementation( project(Modules.core) )
 
