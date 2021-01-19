@@ -1,8 +1,8 @@
-
-include(
-    ":app",
-    ":core"
-)
+include(":commons:ui")
+include(":app")
+include(":core")
+include(":features:home")
 
 rootProject.name = "Ulesson Task"
 rootProject.buildFileName = "build.gradle.kts"
+

@@ -24,6 +24,7 @@
 
 package extentions
 
+import dependencies.BuildDependencies
 import dependencies.BuildDependencies.dagger_hilt
 import dependencies.BuildDependencies.dagger_hilt_kapt
 import org.gradle.api.artifacts.Dependency
@@ -37,6 +38,10 @@ import dependencies.BuildDependencies.kotlin_reflect
 import dependencies.BuildDependencies.room_db
 import dependencies.BuildDependencies.room_ktx
 import dependencies.BuildDependencies.room_compiler
+import dependencies.BuildDependencies.navigation_ui
+import dependencies.BuildDependencies.navigation_fragment
+import dependencies.BuildDependencies.navigation_dyn_feat
+import dependencies.BuildDependencies.dynamic_features_nav
 
 /**
  * Add debugImplementation configuration.
@@ -154,4 +159,11 @@ fun DependencyHandler.addRoomDbDependencies() {
     implementation(room_ktx)
 
     kapt(room_compiler)
+}
+
+fun DependencyHandler.addNavigationLibraries() {
+    implementation(navigation_fragment)
+    implementation(navigation_ui)
+    implementation(navigation_dyn_feat)
+    implementation(dynamic_features_nav)
 }

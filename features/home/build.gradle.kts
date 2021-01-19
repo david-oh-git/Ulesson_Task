@@ -1,34 +1,28 @@
-import BuildAndroidConfig.application_id
-import BuildAndroidConfig.build_tools_version
 import BuildAndroidConfig.compile_sdk_version
 import BuildAndroidConfig.minimum_sdk_version
 import BuildAndroidConfig.target_sdk_version
 import BuildAndroidConfig.test_instrumentation_runner
 import BuildAndroidConfig.version_code
 import BuildAndroidConfig.version_name
-import dependencies.BuildDependencies
 import extentions.addKotlinLibraries
 import extentions.addSharedLibraries
+import dependencies.BuildDependencies
 import extentions.addNavigationLibraries
-import Modules.core
 
 plugins {
-    id(BuildPlugins.android_application)
+//    id("com.android.dynamic-feature")
+    id(BuildPlugins.android_library)
     kotlin(BuildPlugins.kotlin_android)
     kotlin(BuildPlugins.kotlin_kapt)
-    id(BuildPlugins.dagger_hilt_plugin)
+    id("kotlin-android")
 }
-
 android {
     compileSdkVersion(compile_sdk_version)
-    buildToolsVersion(build_tools_version)
 
     defaultConfig {
-        applicationId = application_id
         minSdkVersion(minimum_sdk_version)
         targetSdkVersion(target_sdk_version)
-        versionCode = version_code
-        versionName = version_name
+//        applicationId = "io.davidosemwota.home"
 
         testInstrumentationRunner = test_instrumentation_runner
     }
@@ -54,52 +48,32 @@ android {
         }
     }
 
-    buildTypes {
-
-        getByName(BuildType.release){
-            isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
-            isTestCoverageEnabled = BuildTypeRelease.isTestCoverageEnabled
-            proguardFiles( getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-
-        }
-
-        getByName(BuildType.debug){
-            applicationIdSuffix = BuildTypeDebug.applicationIdSuffix
-            isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
-            versionNameSuffix = BuildTypeDebug.versionNameSuffix
-            isTestCoverageEnabled = BuildTypeDebug.isTestCoverageEnabled
-        }
-
-    }
-
-    buildFeatures {
-        viewBinding = true
-    }
-
     lintOptions {
         lintConfig = rootProject.file(".lint/config.xml")
         isCheckAllWarnings = true
         isWarningsAsErrors = false
     }
 
-//    dynamicFeatures = mutableSetOf(
-//        Modules.home
-//    )
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+        unitTests.isReturnDefaultValues = true
+    }
+
+    buildFeatures.viewBinding = true
+
 }
 
 dependencies {
-    implementation( fileTree( mapOf( "dir" to "libs", "include" to  listOf("*.jar")  )))
-
-    implementation( project(core) )
-    implementation( project(Modules.home))
+//    implementation(project(Modules.app))
 
     addKotlinLibraries()
     addSharedLibraries()
     addNavigationLibraries()
     BuildDependencies.run {
-        implementation(play_core)
+        implementation(fragment_ktx)
         implementation(app_compat)
         implementation(material_components)
-        implementation(constraints_layout)
+        implementation(recycler_view)
+        implementation(livedata_ktx)
     }
 }
