@@ -21,26 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.home.main.adaptor.holders
+package io.davidosemwota.home.main.adaptor
 
-import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import io.davidosemwota.core.data.Subject
-import io.davidosemwota.home.databinding.ListSubjectItemBinding
-import io.davidosemwota.ui.base.BaseViewHolder
-import io.davidosemwota.ui.extentions.setImage
+import io.davidosemwota.home.main.adaptor.holders.SubjectViewHolder
+import io.davidosemwota.ui.base.BaseListAdaptor
 
-class SubjectViewHolder(
-    inflater: LayoutInflater
-) : BaseViewHolder<ListSubjectItemBinding>(
-    binding = ListSubjectItemBinding.inflate(inflater)
+class SubjectAdaptor : BaseListAdaptor<Subject>(
+    itemsSame = { old, new -> old.subjectId == new.subjectId },
+    contentsSame = { old, new -> old == new }
 ) {
 
-    fun bind(subject: Subject) {
-        binding.apply {
-            cardContainer.setCardBackgroundColor(Color.LTGRAY)
-            subjectName.text = subject.name
-            subjectIcon.setImage(subject.icon, null)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        inflater: LayoutInflater,
+        viewType: Int
+    ) = SubjectViewHolder(inflater)
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is SubjectViewHolder -> holder.bind(getItem(position))
         }
     }
 }

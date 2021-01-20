@@ -30,7 +30,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import io.davidosemwota.core.data.Subject
+import io.davidosemwota.home.R
 import io.davidosemwota.home.databinding.FragmentHomeBinding
+import io.davidosemwota.home.main.adaptor.SubjectAdaptor
 import io.davidosemwota.home.main.di.inject
 import io.davidosemwota.ui.extentions.observe
 import io.davidosemwota.ui.extentions.visible
@@ -46,10 +50,15 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
+    private val adaptor by lazy {
+        SubjectAdaptor()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         inject(this)
+        viewModel.refreshDataFromRemoteSource()
     }
 
     override fun onCreateView(
@@ -66,6 +75,17 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observe(viewModel.state, ::onViewStateChange)
+        observe(viewModel.subjects, ::onViewDataChange)
+        setUpRecyclerView()
+        binding.includeHomeLoaded.toolbar.title = getString(R.string.home_welcome_msg)
+    }
+
+    private fun setUpRecyclerView() {
+        binding.includeHomeLoaded.subjectsList
+            .apply {
+                this.adapter = adaptor
+                layoutManager = GridLayoutManager(requireContext(), 2)
+            }
     }
 
     private fun onViewStateChange(viewState: HomeViewState) {
@@ -99,5 +119,9 @@ class HomeFragment : Fragment() {
             HomeViewState.Refreshing -> {
             }
         }
+    }
+
+    private fun onViewDataChange(subjects: List<Subject>) {
+        adaptor.submitList(subjects)
     }
 }
