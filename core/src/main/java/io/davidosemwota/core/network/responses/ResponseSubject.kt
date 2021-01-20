@@ -32,8 +32,8 @@ package io.davidosemwota.core.network.responses
  * @param chapters A list of [ResponseChapter]s.
  */
 data class ResponseSubject(
-    val id: Int?,
-    val name: String?,
-    val icon: String?,
+    val id: Int,
+    val name: String,
+    val icon: String,
     val chapters: List<ResponseChapter>
 )

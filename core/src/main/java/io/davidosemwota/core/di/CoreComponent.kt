@@ -26,7 +26,11 @@ package io.davidosemwota.core.di
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import io.davidosemwota.core.data.UlessonRepository
 
 @EntryPoint
 @InstallIn(ApplicationComponent::class)
-interface CoreComponent
+interface CoreComponent {
+
+    val repository: UlessonRepository
+}

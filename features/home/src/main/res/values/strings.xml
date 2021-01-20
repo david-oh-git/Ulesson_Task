@@ -1,0 +1,7 @@
+<resources>
+    <string name="home_error_text">Error fetching data …</string>
+    <string name="home_empty_text">Empty ! pull to refresh</string>
+    <string name="home_welcome_msg">Hello Simbi</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

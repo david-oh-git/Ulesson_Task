@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_app_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="io.davidosemwota.home.main.HomeFragment"
+        app:moduleName="Ulesson_Task.features.home"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_home" >
+
+        <action
+            android:id="@+id/action_homeFragment_to_chapterListFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:destination="@id/chapterListFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/chapterListFragment"
+        android:name="io.davidosemwota.chapter_list.chapters.ChapterListFragment"
+        app:moduleName="Ulesson_Task.features.chapter_list"
+        android:label="fragment_chapter_list"
+        tools:layout="@layout/fragment_chapter_list">
+
+        <argument
+            android:defaultValue="0"
+            android:name="subject_id"
+            app:argType="integer" />
+
+        <argument
+            android:defaultValue=""
+            android:name="subject_name"
+            app:argType="string" />
+
+    </fragment>
+
+</navigation>

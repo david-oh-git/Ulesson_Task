@@ -29,7 +29,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "chapters")
 data class Chapter(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo val chapterId: Int,
     @ColumnInfo val subjectId: Int,
     @ColumnInfo val subjectName: String,

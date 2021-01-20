@@ -9,6 +9,7 @@ import BuildAndroidConfig.version_name
 import dependencies.BuildDependencies
 import extentions.addKotlinLibraries
 import extentions.addSharedLibraries
+import extentions.addNavigationLibraries
 import Modules.core
 
 plugins {
@@ -16,6 +17,7 @@ plugins {
     kotlin(BuildPlugins.kotlin_android)
     kotlin(BuildPlugins.kotlin_kapt)
     id(BuildPlugins.dagger_hilt_plugin)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -69,12 +71,6 @@ android {
             isTestCoverageEnabled = BuildTypeDebug.isTestCoverageEnabled
         }
 
-        lintOptions {
-            lintConfig = rootProject.file(".lint/config.xml")
-            isCheckAllWarnings = true
-            isWarningsAsErrors = true
-        }
-
     }
 
     buildFeatures {
@@ -84,19 +80,29 @@ android {
     lintOptions {
         lintConfig = rootProject.file(".lint/config.xml")
         isCheckAllWarnings = true
-        isWarningsAsErrors = false
+        isWarningsAsErrors = true
     }
+
+    dynamicFeatures = mutableSetOf(
+        Modules.home, Modules.chapter_list
+    )
 }
 
 dependencies {
+    implementation( fileTree( mapOf( "dir" to "libs", "include" to  listOf("*.jar")  )))
 
-    implementation( project(core) )
+//    implementation( project(Modules.home))
+    implementation( project(core))
+    api( project(Modules.ui))
 
     addKotlinLibraries()
     addSharedLibraries()
+    addNavigationLibraries()
     BuildDependencies.run {
+        implementation(play_core)
         implementation(app_compat)
         implementation(material_components)
         implementation(constraints_layout)
+        api(livedata_ktx)
     }
 }
