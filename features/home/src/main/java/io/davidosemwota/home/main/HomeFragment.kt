@@ -30,6 +30,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import io.davidosemwota.core.data.Subject
 import io.davidosemwota.home.R
@@ -52,7 +53,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val adaptor by lazy {
-        SubjectAdaptor()
+        SubjectAdaptor(::onItemClickAction)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,5 +128,14 @@ class HomeFragment : Fragment() {
 
     private fun onViewDataChange(subjects: List<Subject>) {
         adaptor.submitList(subjects)
+    }
+
+    private fun onItemClickAction(subjectName: String, subjectId: Int) {
+        val action = HomeFragmentDirections.actionMainFragmentToSubjectFragment(
+            subjectId = subjectId,
+            subjectName = subjectName
+        )
+
+        findNavController().navigate(action)
     }
 }

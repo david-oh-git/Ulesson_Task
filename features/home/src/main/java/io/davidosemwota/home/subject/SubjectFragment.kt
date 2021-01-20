@@ -21,31 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.home.main.adaptor
+package io.davidosemwota.home.subject
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import io.davidosemwota.core.data.Subject
-import io.davidosemwota.home.main.adaptor.holders.SubjectViewHolder
-import io.davidosemwota.ui.base.BaseListAdaptor
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
+import io.davidosemwota.home.databinding.FragmentSubjectBinding
 
-class SubjectAdaptor(
-    private val onItemClickAction: (String, Int) -> Unit
-) : BaseListAdaptor<Subject>(
-    itemsSame = { old, new -> old.subjectId == new.subjectId },
-    contentsSame = { old, new -> old == new }
-) {
+class SubjectFragment : Fragment() {
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
+    private lateinit var binding: FragmentSubjectBinding
+    private val args: SubjectFragmentArgs by navArgs()
+
+    override fun onCreateView(
         inflater: LayoutInflater,
-        viewType: Int
-    ) = SubjectViewHolder(inflater)
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is SubjectViewHolder -> holder.bind(onItemClickAction, getItem(position))
-        }
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSubjectBinding.inflate(inflater)
+        return binding.root
     }
 }

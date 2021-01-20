@@ -12,7 +12,7 @@ plugins {
 //    id(BuildPlugins.android_library)
     kotlin(BuildPlugins.kotlin_android)
     kotlin(BuildPlugins.kotlin_kapt)
-    id("kotlin-android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 android {
     compileSdkVersion(compile_sdk_version)
