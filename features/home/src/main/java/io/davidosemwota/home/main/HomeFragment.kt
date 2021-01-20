@@ -37,6 +37,7 @@ import io.davidosemwota.home.databinding.FragmentHomeBinding
 import io.davidosemwota.home.main.adaptor.SubjectAdaptor
 import io.davidosemwota.home.main.di.inject
 import io.davidosemwota.ui.extentions.observe
+import io.davidosemwota.ui.extentions.setItemDecorationSpacing
 import io.davidosemwota.ui.extentions.visible
 import javax.inject.Inject
 
@@ -85,6 +86,9 @@ class HomeFragment : Fragment() {
             .apply {
                 this.adapter = adaptor
                 layoutManager = GridLayoutManager(requireContext(), 2)
+                setItemDecorationSpacing(
+                    resources.getDimension(R.dimen.view_subject_list_item_padding)
+                )
             }
     }
 
