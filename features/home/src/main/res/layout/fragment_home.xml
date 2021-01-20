@@ -7,20 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".main.HomeFragment">
 
-    <include
-        android:id="@+id/include_home_loading"
-        layout="@layout/view_home_loading" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/include_home_error"
-        layout="@layout/view_home_error" />
+        <include
+            android:id="@+id/include_home_error"
+            layout="@layout/view_home_error" />
 
-    <include
-        android:id="@+id/include_home_empty"
-        layout="@layout/view_home_empty" />
+        <include
+            android:id="@+id/include_home_empty"
+            layout="@layout/view_home_empty" />
 
-    <include
-        android:id="@+id/include_home_loaded"
-        layout="@layout/view_home_loaded" />
+        <include
+            android:id="@+id/include_home_loaded"
+            layout="@layout/view_home_loaded" />
+
+        <include
+            android:id="@+id/include_home_loading"
+            layout="@layout/view_home_loading" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

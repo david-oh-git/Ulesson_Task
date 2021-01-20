@@ -42,6 +42,10 @@ android {
         unitTests.isReturnDefaultValues = true
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 dependencies {
@@ -49,5 +53,7 @@ dependencies {
     BuildDependencies.run {
         implementation(fragment_ktx)
         implementation(recycler_view)
+        implementation(app_compat)
+        implementation(coil)
     }
 }

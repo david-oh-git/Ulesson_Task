@@ -23,12 +23,11 @@
  */
 package io.davidosemwota.home.main
 
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import io.davidosemwota.core.data.UlessonRepository
-import io.davidosemwota.core.network.NetworkState
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -47,24 +46,26 @@ class HomeViewModel @Inject constructor(
             .collect { emit(it) }
     }
 
-    val state = Transformations.map(networkState) {
+//    val state = Transformations.map(networkState) {
+//
+//        when (it) {
+//            is NetworkState.Success -> {
+//                if (it.isEmptyResponse) {
+//                    HomeViewState.Empty
+//                } else {
+//                    HomeViewState.Loaded
+//                }
+//            }
+//            is NetworkState.Error -> {
+//                HomeViewState.Error
+//            }
+//            is NetworkState.Loading -> {
+//                HomeViewState.Loading
+//            }
+//        }
+//    }
 
-        when (it) {
-            is NetworkState.Success -> {
-                if (it.isEmptyResponse) {
-                    HomeViewState.Empty
-                } else {
-                    HomeViewState.Loaded
-                }
-            }
-            is NetworkState.Error -> {
-                HomeViewState.Error
-            }
-            is NetworkState.Loading -> {
-                HomeViewState.Loading
-            }
-        }
-    }
+    val state = MutableLiveData(HomeViewState.Loaded)
 
     fun refreshDataFromRemoteSource() = viewModelScope.launch {
         repository.updateDataFromApi()

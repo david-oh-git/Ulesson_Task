@@ -79,7 +79,7 @@ android {
     lintOptions {
         lintConfig = rootProject.file(".lint/config.xml")
         isCheckAllWarnings = true
-        isWarningsAsErrors = false
+        isWarningsAsErrors = true
     }
 
     dynamicFeatures = mutableSetOf(

@@ -33,6 +33,7 @@ object BuildDependencies {
     const val app_compat = "androidx.appcompat:appcompat:${Versions.app_compat}"
     const val constraints_layout = "androidx.constraintlayout:constraintlayout:${Versions.constraints_layout}"
     const val material_components = "com.google.android.material:material:${Versions.material_components}"
+    const val coil = "io.coil-kt:coil:${Versions.coil}"
 
     private object Versions {
         const val kotlin = "1.4.21"
@@ -53,5 +54,6 @@ object BuildDependencies {
         const val fragment_ktx = "1.2.5"
         const val play_core = "1.8.0"
         const val swipe_refresh_layout = "1.1.0"
+        const val coil = "1.0.0"
     }
 }
