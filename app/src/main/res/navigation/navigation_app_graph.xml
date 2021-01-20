@@ -30,7 +30,7 @@
         tools:layout="@layout/fragment_chapter_list">
 
         <argument
-            android:defaultValue="0"
+            android:defaultValue="-1"
             android:name="subject_id"
             app:argType="integer" />
 

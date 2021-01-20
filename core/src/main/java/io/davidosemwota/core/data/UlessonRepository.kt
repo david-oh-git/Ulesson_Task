@@ -41,5 +41,5 @@ interface UlessonRepository {
 
     suspend fun updateDataFromApi()
 
-    fun getChapterWithLessonsBySubjectId(subjectId: Int): Flow<List<ChapterWithLessons>>
+    fun getChapterWithLessonsBySubjectId(subjectId: Int): List<ChapterWithLessons>
 }

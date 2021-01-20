@@ -45,5 +45,5 @@ interface UlessonLocalSource {
 
     fun getSubjects(): Flow<List<Subject>>
 
-    fun getChapterWithLessonsBySubjectId(subjectId: Int): Flow<List<ChapterWithLessons>>
+    fun getChapterWithLessonsBySubjectId(subjectId: Int): List<ChapterWithLessons>
 }

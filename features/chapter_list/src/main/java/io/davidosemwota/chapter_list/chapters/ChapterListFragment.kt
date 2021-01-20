@@ -33,6 +33,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import io.davidosemwota.chapter_list.chapters.di.inject
 import io.davidosemwota.chapter_list.databinding.FragmentChapterListBinding
+import io.davidosemwota.core.data.ChapterWithLessons
+import io.davidosemwota.ui.extentions.observe
+import io.davidosemwota.ui.extentions.visible
 import javax.inject.Inject
 
 class ChapterListFragment : Fragment() {
@@ -59,5 +62,56 @@ class ChapterListFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentChapterListBinding.inflate(inflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if (args.subjectId != -1)
+            viewModel.getChapters(args.subjectId)
+
+        observe(viewModel.chapterWithLessons, ::onDataChange)
+        observe(viewModel.state, ::onViewStateChange)
+        setToolBarTitle()
+    }
+
+    private fun setToolBarTitle() {
+
+        binding.includeChapterListLoaded.toolbar.title = args.subjectName
+        binding.includeChapterListEmpty.toolbar.title = args.subjectName
+        binding.includeChapterListLoading.toolbar.title = args.subjectName
+    }
+
+    private fun onViewStateChange(viewState: ChapterListViewState) {
+
+        when (viewState) {
+            ChapterListViewState.Empty -> {
+                binding.includeChapterListEmpty.root.visible = true
+                binding.includeChapterListLoaded.root.visible = false
+                binding.includeChapterListLoading.root.visible = false
+                binding.includeChapterListError.root.visible = false
+            }
+            ChapterListViewState.Loaded -> {
+                binding.includeChapterListLoaded.root.visible = true
+                binding.includeChapterListEmpty.root.visible = false
+                binding.includeChapterListLoading.root.visible = false
+                binding.includeChapterListError.root.visible = false
+            }
+            ChapterListViewState.Loading -> {
+                binding.includeChapterListLoading.root.visible = true
+                binding.includeChapterListEmpty.root.visible = false
+                binding.includeChapterListLoaded.root.visible = false
+                binding.includeChapterListError.root.visible = false
+            }
+            ChapterListViewState.Error -> {
+                binding.includeChapterListError.root.visible = true
+                binding.includeChapterListLoading.root.visible = false
+                binding.includeChapterListEmpty.root.visible = false
+                binding.includeChapterListLoaded.root.visible = false
+            }
+        }
+    }
+
+    private fun onDataChange(data: List<ChapterWithLessons>) {
     }
 }

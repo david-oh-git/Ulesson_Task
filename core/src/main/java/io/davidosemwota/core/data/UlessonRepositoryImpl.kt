@@ -80,7 +80,7 @@ class UlessonRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getChapterWithLessonsBySubjectId(subjectId: Int): Flow<List<ChapterWithLessons>> {
+    override fun getChapterWithLessonsBySubjectId(subjectId: Int): List<ChapterWithLessons> {
         return localSource.getChapterWithLessonsBySubjectId(subjectId)
     }
 
