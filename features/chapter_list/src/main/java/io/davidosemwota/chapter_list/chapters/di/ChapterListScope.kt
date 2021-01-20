@@ -21,29 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.core.data
+package io.davidosemwota.chapter_list.chapters.di
 
-import kotlinx.coroutines.flow.Flow
+import javax.inject.Scope
 
-interface UlessonLocalSource {
-
-    suspend fun saveAllSubjects(subjects: List<Subject>)
-
-    suspend fun saveAllChapters(chapters: List<Chapter>)
-
-    suspend fun saveLessons(lessons: List<Lesson>)
-
-    suspend fun saveChapter(chapter: Chapter)
-
-    suspend fun saveLesson(lesson: Lesson)
-
-    suspend fun deleteAllSubjects()
-
-    suspend fun deleteAllChapters()
-
-    suspend fun deleteAllLessons()
-
-    fun getSubjects(): Flow<List<Subject>>
-
-    fun getChapterWithLessonsBySubjectId(subjectId: Int): Flow<List<ChapterWithLessons>>
-}
+@Scope
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+annotation class ChapterListScope

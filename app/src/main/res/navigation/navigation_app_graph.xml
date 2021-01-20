@@ -11,21 +11,23 @@
         app:moduleName="Ulesson_Task.features.home"
         android:label="fragment_main"
         tools:layout="@layout/fragment_home" >
+
         <action
-            android:id="@+id/action_mainFragment_to_subjectFragment"
+            android:id="@+id/action_homeFragment_to_chapterListFragment"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit"
-            app:destination="@id/subjectFragment" />
+            app:destination="@id/chapterListFragment" />
+
     </fragment>
 
     <fragment
-        android:id="@+id/subjectFragment"
-        android:name="io.davidosemwota.home.subject.SubjectFragment"
-        app:moduleName="Ulesson_Task.features.home"
-        android:label="fragment_subject"
-        tools:layout="@layout/fragment_subject" >
+        android:id="@+id/chapterListFragment"
+        android:name="io.davidosemwota.chapter_list.chapters.ChapterListFragment"
+        app:moduleName="Ulesson_Task.features.chapter_list"
+        android:label="fragment_chapter_list"
+        tools:layout="@layout/fragment_chapter_list">
 
         <argument
             android:defaultValue="0"

@@ -13,6 +13,7 @@ plugins {
     kotlin(BuildPlugins.kotlin_android)
     kotlin(BuildPlugins.kotlin_kapt)
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-android")
 }
 android {
     compileSdkVersion(compile_sdk_version)
@@ -72,7 +73,7 @@ dependencies {
         implementation(app_compat)
         implementation(constraints_layout)
         implementation(material_components)
-        implementation(swipe_refresh_layout)
         implementation(recycler_view)
+
     }
 }

@@ -21,29 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.core.data
+package io.davidosemwota.chapter_list.chapters.di
 
-import kotlinx.coroutines.flow.Flow
+import dagger.Component
+import io.davidosemwota.chapter_list.chapters.ChapterListFragment
+import io.davidosemwota.chapter_list.chapters.di.modules.ViewModelModule
+import io.davidosemwota.core.di.CoreComponent
+import io.davidosemwota.core.di.modules.FactoryModules
+import io.davidosemwota.ulessontask.di.AppComponent
 
-interface UlessonLocalSource {
+@ChapterListScope
+@Component(
+    dependencies = [AppComponent::class, CoreComponent::class],
+    modules = [ViewModelModule::class, FactoryModules::class]
+)
+interface ChapterListComponent {
 
-    suspend fun saveAllSubjects(subjects: List<Subject>)
+    @Component.Factory
+    interface Factory {
+        fun create(
+            appComponent: AppComponent,
+            coreComponent: CoreComponent
+        ): ChapterListComponent
+    }
 
-    suspend fun saveAllChapters(chapters: List<Chapter>)
-
-    suspend fun saveLessons(lessons: List<Lesson>)
-
-    suspend fun saveChapter(chapter: Chapter)
-
-    suspend fun saveLesson(lesson: Lesson)
-
-    suspend fun deleteAllSubjects()
-
-    suspend fun deleteAllChapters()
-
-    suspend fun deleteAllLessons()
-
-    fun getSubjects(): Flow<List<Subject>>
-
-    fun getChapterWithLessonsBySubjectId(subjectId: Int): Flow<List<ChapterWithLessons>>
+    fun inject(target: ChapterListFragment)
 }

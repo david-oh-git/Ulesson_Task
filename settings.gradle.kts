@@ -1,3 +1,4 @@
+include(":features:chapter_list")
 include(":commons:ui")
 include(":app")
 include(":core")

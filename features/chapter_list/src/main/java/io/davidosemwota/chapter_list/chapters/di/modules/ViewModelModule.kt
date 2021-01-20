@@ -21,29 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.core.data
+package io.davidosemwota.chapter_list.chapters.di.modules
 
-import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.ViewModel
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.migration.DisableInstallInCheck
+import dagger.multibindings.IntoMap
+import io.davidosemwota.chapter_list.chapters.ChapterListViewModel
+import io.davidosemwota.core.di.ViewModelKey
 
-interface UlessonLocalSource {
+@DisableInstallInCheck
+@Module
+interface ViewModelModule {
 
-    suspend fun saveAllSubjects(subjects: List<Subject>)
-
-    suspend fun saveAllChapters(chapters: List<Chapter>)
-
-    suspend fun saveLessons(lessons: List<Lesson>)
-
-    suspend fun saveChapter(chapter: Chapter)
-
-    suspend fun saveLesson(lesson: Lesson)
-
-    suspend fun deleteAllSubjects()
-
-    suspend fun deleteAllChapters()
-
-    suspend fun deleteAllLessons()
-
-    fun getSubjects(): Flow<List<Subject>>
-
-    fun getChapterWithLessonsBySubjectId(subjectId: Int): Flow<List<ChapterWithLessons>>
+    @get:[Binds IntoMap ViewModelKey(ChapterListViewModel::class)]
+    val ChapterListViewModel.viewModel: ViewModel
 }

@@ -131,7 +131,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun onItemClickAction(subjectName: String, subjectId: Int) {
-        val action = HomeFragmentDirections.actionMainFragmentToSubjectFragment(
+        val action = HomeFragmentDirections.actionHomeFragmentToChapterListFragment(
             subjectId = subjectId,
             subjectName = subjectName
         )

@@ -84,7 +84,7 @@ android {
     }
 
     dynamicFeatures = mutableSetOf(
-        Modules.home
+        Modules.home, Modules.chapter_list
     )
 }
 
@@ -93,6 +93,7 @@ dependencies {
 
 //    implementation( project(Modules.home))
     implementation( project(core))
+    api( project(Modules.ui))
 
     addKotlinLibraries()
     addSharedLibraries()
@@ -102,5 +103,6 @@ dependencies {
         implementation(app_compat)
         implementation(material_components)
         implementation(constraints_layout)
+        api(livedata_ktx)
     }
 }

@@ -21,27 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.home.subject
+package io.davidosemwota.chapter_list.chapters
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
-import io.davidosemwota.home.databinding.FragmentSubjectBinding
+import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 
-class SubjectFragment : Fragment() {
-
-    private lateinit var binding: FragmentSubjectBinding
-    private val args: SubjectFragmentArgs by navArgs()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSubjectBinding.inflate(inflater)
-        return binding.root
-    }
-}
+class ChapterListViewModel @Inject constructor() : ViewModel()

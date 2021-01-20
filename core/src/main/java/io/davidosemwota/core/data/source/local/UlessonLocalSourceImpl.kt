@@ -24,6 +24,7 @@
 package io.davidosemwota.core.data.source.local
 
 import io.davidosemwota.core.data.Chapter
+import io.davidosemwota.core.data.ChapterWithLessons
 import io.davidosemwota.core.data.Lesson
 import io.davidosemwota.core.data.Subject
 import io.davidosemwota.core.data.UlessonLocalSource
@@ -31,6 +32,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 
 class UlessonLocalSourceImpl @Inject constructor(
@@ -74,4 +76,9 @@ class UlessonLocalSourceImpl @Inject constructor(
 
     override fun getSubjects(): Flow<List<Subject>> =
         subjectDao.getSubjects()
+
+    override fun getChapterWithLessonsBySubjectId(subjectId: Int): Flow<List<ChapterWithLessons>> {
+        val chapterWithLessons = chapterDao.getChapterWithLessonsBySubjectId(subjectId)
+        return MutableStateFlow(chapterWithLessons)
+    }
 }

@@ -21,29 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.core.data
+package io.davidosemwota.chapter_list.chapters.di
 
-import kotlinx.coroutines.flow.Flow
+import dagger.hilt.android.EntryPointAccessors
+import io.davidosemwota.chapter_list.chapters.ChapterListFragment
+import io.davidosemwota.core.di.CoreComponent
+import io.davidosemwota.ulessontask.di.AppComponent
 
-interface UlessonLocalSource {
+internal fun inject(fragment: ChapterListFragment) =
+    DaggerChapterListComponent
+        .factory()
+        .create(
+            appComponent(fragment),
+            coreComponent(fragment)
+        )
+        .inject(fragment)
 
-    suspend fun saveAllSubjects(subjects: List<Subject>)
+private fun coreComponent(fragment: ChapterListFragment): CoreComponent =
+    EntryPointAccessors.fromApplication(
+        fragment.requireContext().applicationContext,
+        CoreComponent::class.java
+    )
 
-    suspend fun saveAllChapters(chapters: List<Chapter>)
-
-    suspend fun saveLessons(lessons: List<Lesson>)
-
-    suspend fun saveChapter(chapter: Chapter)
-
-    suspend fun saveLesson(lesson: Lesson)
-
-    suspend fun deleteAllSubjects()
-
-    suspend fun deleteAllChapters()
-
-    suspend fun deleteAllLessons()
-
-    fun getSubjects(): Flow<List<Subject>>
-
-    fun getChapterWithLessonsBySubjectId(subjectId: Int): Flow<List<ChapterWithLessons>>
-}
+private fun appComponent(fragment: ChapterListFragment): AppComponent =
+    EntryPointAccessors.fromApplication(
+        fragment.requireContext().applicationContext,
+        AppComponent::class.java
+    )
