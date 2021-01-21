@@ -106,4 +106,19 @@ class LessonDaoTest {
         val lessons = lessonDao.getLessons().take(1).toList()[0]
         assertThat(lessons.isEmpty()).isTrue()
     }
+
+    @Test
+    fun ` save a list of lessons then get get a lesson by lessonId`() = runBlockingTest {
+        // Arrange: save a list of lessons.
+        val lessonId = 999
+        val lesson = getLesson().copy(lessonId = lessonId)
+        lessonDao.insertAll(getLessons(6))
+        lessonDao.insert(lesson)
+
+        // Act: get lesson with lessonId
+        val result = lessonDao.getLesson(lessonId)
+
+        // Assert: confirm result
+        assertThat(lesson).isEqualTo(result)
+    }
 }

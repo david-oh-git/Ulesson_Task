@@ -39,6 +39,9 @@ interface LessonDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(lessons: List<Lesson>)
 
+    @Query("SELECT * FROM lessons WHERE lessonId = :lessonId")
+    fun getLesson(lessonId: Int): Lesson?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(lesson: Lesson)
 
