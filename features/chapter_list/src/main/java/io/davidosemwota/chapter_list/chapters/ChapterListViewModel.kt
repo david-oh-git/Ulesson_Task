@@ -23,6 +23,7 @@
  */
 package io.davidosemwota.chapter_list.chapters
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -32,12 +33,14 @@ import io.davidosemwota.core.data.UlessonRepository
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ChapterListViewModel @Inject constructor(
     private val repository: UlessonRepository
 ) : ViewModel() {
 
-    val chapterWithLessons = MutableLiveData<List<ChapterWithLessons>>()
+    private val _chapterWithLessons = MutableLiveData<List<ChapterWithLessons>>()
+    val chapterWithLessons: LiveData<List<ChapterWithLessons>> = _chapterWithLessons
 
     val state = Transformations.map(chapterWithLessons) {
         when {
@@ -49,8 +52,12 @@ class ChapterListViewModel @Inject constructor(
     }
 
     fun getChapters(subjectId: Int) = viewModelScope.launch(Dispatchers.IO) {
-        chapterWithLessons.postValue(
+        _chapterWithLessons.postValue(
             repository.getChapterWithLessonsBySubjectId(subjectId)
         )
+        val data = repository.getChapterWithLessonsBySubjectId(subjectId)
+        for (item in data) {
+            Timber.d("Chapter : ${item.chapter.name}")
+        }
     }
 }

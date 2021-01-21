@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
-    private val adaptor by lazy {
+    private val subjectAdaptor by lazy {
         SubjectAdaptor(::onItemClickAction)
     }
 
@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
     private fun setUpRecyclerView() {
         binding.includeHomeLoaded.subjectsList
             .apply {
-                this.adapter = adaptor
+                this.adapter = subjectAdaptor
                 layoutManager = GridLayoutManager(requireContext(), 2)
                 setItemDecorationSpacing(
                     resources.getDimension(R.dimen.view_subject_list_item_padding)
@@ -127,7 +127,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun onViewDataChange(subjects: List<Subject>) {
-        adaptor.submitList(subjects)
+        subjectAdaptor.submitList(subjects)
     }
 
     private fun onItemClickAction(subjectName: String, subjectId: Int) {

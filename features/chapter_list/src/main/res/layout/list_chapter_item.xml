@@ -6,16 +6,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chapters_list"
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+        android:id="@+id/chapter_name"
+        tools:text="Rational Numbers"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/list_chapter_item"
+        android:layout_height="wrap_content" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lessons_list"
+        app:layout_constraintTop_toBottomOf="@id/chapter_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

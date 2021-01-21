@@ -4,21 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".chapters.ChapterListFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:navigationIcon="@drawable/ic_back"
+            android:background="@color/toolbar_color"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <include
+        app:layout_constraintTop_toBottomOf="@id/appbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/include_chapter_list_empty"
         layout="@layout/view_chapter_list_empty" />
 
     <include
+        app:layout_constraintTop_toBottomOf="@id/appbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/include_chapter_list_loaded"
         layout="@layout/view_chapter_list" />
 
     <include
+        app:layout_constraintTop_toBottomOf="@id/appbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/include_chapter_list_loading"
         layout="@layout/view_chapter_list_loading" />
 
     <include
+        app:layout_constraintTop_toBottomOf="@id/appbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/include_chapter_list_error"
         layout="@layout/view_chapter_list_error" />
 
