@@ -74,6 +74,8 @@ dependencies {
         implementation(constraints_layout)
         implementation(material_components)
         implementation(recycler_view)
-
+        implementation(exo_player_core)
+        implementation(exo_player_dash)
+        implementation(exo_player_ui)
     }
 }

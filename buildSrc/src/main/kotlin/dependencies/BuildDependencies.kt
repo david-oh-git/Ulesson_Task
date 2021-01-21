@@ -34,6 +34,9 @@ object BuildDependencies {
     const val constraints_layout = "androidx.constraintlayout:constraintlayout:${Versions.constraints_layout}"
     const val material_components = "com.google.android.material:material:${Versions.material_components}"
     const val coil = "io.coil-kt:coil:${Versions.coil}"
+    const val exo_player_core = "com.google.android.exoplayer:exoplayer-core:${Versions.exo_player}"
+    const val exo_player_dash = "com.google.android.exoplayer:exoplayer-dash:${Versions.exo_player}"
+    const val exo_player_ui = "com.google.android.exoplayer:exoplayer-ui:${Versions.exo_player}"
 
     private object Versions {
         const val kotlin = "1.4.21"
@@ -55,5 +58,6 @@ object BuildDependencies {
         const val play_core = "1.8.0"
         const val swipe_refresh_layout = "1.1.0"
         const val coil = "1.0.0"
+        const val exo_player = "2.12.1"
     }
 }
