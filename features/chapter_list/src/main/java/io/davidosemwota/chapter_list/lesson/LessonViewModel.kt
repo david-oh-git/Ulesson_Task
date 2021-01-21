@@ -21,38 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.chapter_list.chapters
+package io.davidosemwota.chapter_list.lesson
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.davidosemwota.core.data.ChapterWithLessons
+import io.davidosemwota.core.data.Lesson
 import io.davidosemwota.core.data.UlessonRepository
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ChapterListViewModel @Inject constructor(
+class LessonViewModel @Inject constructor(
     private val repository: UlessonRepository
 ) : ViewModel() {
 
-    private val _chapterWithLessons = MutableLiveData<List<ChapterWithLessons>>()
-    val chapterWithLessons: LiveData<List<ChapterWithLessons>> = _chapterWithLessons
+    private val _lesson = MutableLiveData<Lesson>()
+    val lesson: LiveData<Lesson> = _lesson
 
-    val state = Transformations.map(chapterWithLessons) {
-        when {
-            it.isEmpty() -> ChapterListViewState.Empty
-            it.isNotEmpty() -> ChapterListViewState.Loaded
-            it == null -> ChapterListViewState.Error
-            else -> ChapterListViewState.Loading
-        }
-    }
-
-    fun getChapters(subjectId: Int) = viewModelScope.launch(Dispatchers.IO) {
-        _chapterWithLessons.postValue(
-            repository.getChapterWithLessonsBySubjectId(subjectId)
+    fun getLesson(lessonId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        _lesson.postValue(
+            repository.getLesson(lessonId)
         )
     }
 }

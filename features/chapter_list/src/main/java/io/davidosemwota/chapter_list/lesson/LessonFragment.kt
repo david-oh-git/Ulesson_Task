@@ -28,13 +28,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import io.davidosemwota.chapter_list.databinding.FragmentLessonBinding
+import io.davidosemwota.chapter_list.lesson.di.inject
+import io.davidosemwota.core.data.Lesson
+import io.davidosemwota.ui.extentions.observe
+import javax.inject.Inject
 
 class LessonFragment : Fragment() {
 
     private lateinit var binding: FragmentLessonBinding
     private val args: LessonFragmentArgs by navArgs()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel: LessonViewModel by viewModels {
+        viewModelFactory
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,9 +68,18 @@ class LessonFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViews(args)
+        observe(viewModel.lesson, ::onDataChange)
     }
 
     private fun setupViews(args: LessonFragmentArgs) {
+        viewModel.getLesson(args.lessonId)
         binding.chapterName.text = args.chapterName
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun onDataChange(data: Lesson) {
+        binding.lessonName.text = data.name
     }
 }
