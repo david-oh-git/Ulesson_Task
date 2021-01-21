@@ -21,22 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.chapter_list.chapters.adaptors.viewholders
+package io.davidosemwota.chapter_list.lesson
 
+import android.os.Bundle
 import android.view.LayoutInflater
-import io.davidosemwota.chapter_list.databinding.ListLessonItemBinding
-import io.davidosemwota.core.data.Lesson
-import io.davidosemwota.ui.base.BaseViewHolder
-import io.davidosemwota.ui.extentions.setImage
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import io.davidosemwota.chapter_list.R
 
-class LessonViewHolder(
-    layoutInflater: LayoutInflater
-) : BaseViewHolder<ListLessonItemBinding>(
-    binding = ListLessonItemBinding.inflate(layoutInflater)
-) {
+class LessonFragment : Fragment() {
 
-    fun bind(subjectName: String, lesson: Lesson) {
-        binding.lessonName.text = lesson.name
-        binding.lessonsImage.setImage(lesson.icon)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_lesson, container, false)
     }
 }

@@ -39,7 +39,7 @@ class ChapterViewHolder(
 
     fun bind(chapterWithLessons: ChapterWithLessons) {
         binding.chapterName.text = chapterWithLessons.chapter.name
-        val lessonAdaptor = LessonAdaptor()
+        val lessonAdaptor = LessonAdaptor(chapterWithLessons.chapter.subjectName)
         lessonAdaptor.submitList(chapterWithLessons.lessons)
         binding.lessonsList.apply {
             adapter = lessonAdaptor
