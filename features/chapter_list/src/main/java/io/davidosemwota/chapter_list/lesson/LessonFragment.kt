@@ -28,9 +28,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import io.davidosemwota.chapter_list.R
+import androidx.navigation.fragment.navArgs
+import io.davidosemwota.chapter_list.databinding.FragmentLessonBinding
 
 class LessonFragment : Fragment() {
+
+    private lateinit var binding: FragmentLessonBinding
+    private val args: LessonFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +44,19 @@ class LessonFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lesson, container, false)
+        binding = FragmentLessonBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupViews(args)
+    }
+
+    private fun setupViews(args: LessonFragmentArgs) {
+        binding.chapterName.text = args.chapterName
     }
 }

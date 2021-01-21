@@ -54,7 +54,7 @@ class ChapterListFragment : Fragment() {
     }
 
     private val chapterAdaptor by lazy {
-        ChapterAdaptor()
+        ChapterAdaptor(::navigateToLessonFragment)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,5 +138,13 @@ class ChapterListFragment : Fragment() {
 
     private fun onDataChange(data: List<ChapterWithLessons>) {
         chapterAdaptor.submitList(data)
+    }
+
+    private fun navigateToLessonFragment(chapterName: String, lessonId: Int) {
+        val action = ChapterListFragmentDirections.actionChapterListFragmentToLessonFragment(
+            chapterName = chapterName,
+            lessonId = lessonId
+        )
+        findNavController().navigate(action)
     }
 }

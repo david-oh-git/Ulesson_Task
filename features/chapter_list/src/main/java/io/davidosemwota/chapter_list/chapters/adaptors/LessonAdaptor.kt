@@ -31,7 +31,7 @@ import io.davidosemwota.core.data.Lesson
 import io.davidosemwota.ui.base.BaseListAdaptor
 
 class LessonAdaptor(
-    private val subjectName: String
+    private val lessonItemClickAction: (String, Int) -> Unit
 ) : BaseListAdaptor<Lesson>(
     contentsSame = { old, new -> old == new },
     itemsSame = { old, new -> old.name == new.name }
@@ -45,7 +45,10 @@ class LessonAdaptor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is LessonViewHolder -> holder.bind(subjectName, getItem(position))
+            is LessonViewHolder -> holder.bind(
+                getItem(position),
+                lessonItemClickAction
+            )
         }
     }
 }

@@ -35,8 +35,11 @@ class LessonViewHolder(
     binding = ListLessonItemBinding.inflate(layoutInflater)
 ) {
 
-    fun bind(subjectName: String, lesson: Lesson) {
+    fun bind(lesson: Lesson, lessonItemClickAction: (String, Int) -> Unit) {
         binding.lessonName.text = lesson.name
         binding.lessonsImage.setImage(lesson.icon)
+        binding.cardContainer.setOnClickListener {
+            lessonItemClickAction.invoke(lesson.name, lesson.lessonId)
+        }
     }
 }

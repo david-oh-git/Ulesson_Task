@@ -30,7 +30,9 @@ import io.davidosemwota.chapter_list.chapters.adaptors.viewholders.ChapterViewHo
 import io.davidosemwota.core.data.ChapterWithLessons
 import io.davidosemwota.ui.base.BaseListAdaptor
 
-class ChapterAdaptor : BaseListAdaptor<ChapterWithLessons>(
+class ChapterAdaptor(
+    private val lessonItemClickAction: (String, Int) -> Unit
+) : BaseListAdaptor<ChapterWithLessons>(
     itemsSame = { old, new -> old.chapter.name == new.chapter.name },
     contentsSame = { old, new -> old == new }
 ) {
@@ -43,7 +45,7 @@ class ChapterAdaptor : BaseListAdaptor<ChapterWithLessons>(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is ChapterViewHolder -> holder.bind(getItem(position))
+            is ChapterViewHolder -> holder.bind(lessonItemClickAction, getItem(position))
         }
     }
 }

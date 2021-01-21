@@ -39,6 +39,34 @@
             android:name="subject_name"
             app:argType="string" />
 
+        <action
+            android:id="@+id/action_chapterListFragment_to_lessonFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:destination="@id/lessonFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/lessonFragment"
+        android:name="io.davidosemwota.chapter_list.lesson.LessonFragment"
+        app:moduleName="Ulesson_Task.features.chapter_list"
+        android:label="fragment_lesson"
+        tools:layout="@layout/fragment_lesson" >
+
+        <argument
+            android:defaultValue=""
+            android:name="chapterName"
+            app:argType="string" />
+
+        <argument
+            android:defaultValue="-1"
+            android:name="lessonId"
+            app:argType="integer" />
+
+
     </fragment>
 
 </navigation>

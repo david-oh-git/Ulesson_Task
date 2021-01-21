@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val subjectAdaptor by lazy {
-        SubjectAdaptor(::onItemClickAction)
+        SubjectAdaptor(::navigateToChapterListFragment)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,7 +130,7 @@ class HomeFragment : Fragment() {
         subjectAdaptor.submitList(subjects)
     }
 
-    private fun onItemClickAction(subjectName: String, subjectId: Int) {
+    private fun navigateToChapterListFragment(subjectName: String, subjectId: Int) {
         val action = HomeFragmentDirections.actionHomeFragmentToChapterListFragment(
             subjectId = subjectId,
             subjectName = subjectName

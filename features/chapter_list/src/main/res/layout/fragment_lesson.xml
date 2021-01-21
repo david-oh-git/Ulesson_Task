@@ -34,4 +34,23 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextAppearance.AppCompat.Title"
+        android:id="@+id/lesson_name"
+        tools:text="The number line representation"
+        app:layout_constraintTop_toBottomOf="@id/video_streamer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/chapter_name"
+        tools:text="The number line representation"
+        app:layout_constraintTop_toBottomOf="@id/lesson_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

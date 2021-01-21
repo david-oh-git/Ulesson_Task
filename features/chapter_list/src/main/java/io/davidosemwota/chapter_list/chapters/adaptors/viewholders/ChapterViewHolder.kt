@@ -37,9 +37,11 @@ class ChapterViewHolder(
     binding = ListChapterItemBinding.inflate(layoutInflater)
 ) {
 
-    fun bind(chapterWithLessons: ChapterWithLessons) {
+    fun bind(lessonItemClickAction: (String, Int) -> Unit, chapterWithLessons: ChapterWithLessons) {
         binding.chapterName.text = chapterWithLessons.chapter.name
-        val lessonAdaptor = LessonAdaptor(chapterWithLessons.chapter.subjectName)
+        val lessonAdaptor = LessonAdaptor(
+            lessonItemClickAction
+        )
         lessonAdaptor.submitList(chapterWithLessons.lessons)
         binding.lessonsList.apply {
             adapter = lessonAdaptor
