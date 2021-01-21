@@ -84,6 +84,9 @@ class UlessonRepositoryImpl @Inject constructor(
         return localSource.getChapterWithLessonsBySubjectId(subjectId)
     }
 
+    override fun getLesson(lessonId: Int): Lesson? =
+        localSource.getLesson(lessonId)
+
     private suspend fun parseResponseData(responseData: ResponseData) = withContext(ioDispatcher) {
         val subjects = subjectListMapper.transform(responseData)
         saveLatestSubjects(subjects)

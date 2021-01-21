@@ -36,10 +36,6 @@ class LessonFragment : Fragment() {
     private lateinit var binding: FragmentLessonBinding
     private val args: LessonFragmentArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

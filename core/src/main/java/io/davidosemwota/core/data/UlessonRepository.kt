@@ -42,4 +42,6 @@ interface UlessonRepository {
     suspend fun updateDataFromApi()
 
     fun getChapterWithLessonsBySubjectId(subjectId: Int): List<ChapterWithLessons>
+
+    fun getLesson(lessonId: Int): Lesson?
 }

@@ -79,4 +79,7 @@ class UlessonLocalSourceImpl @Inject constructor(
     override fun getChapterWithLessonsBySubjectId(subjectId: Int): List<ChapterWithLessons> {
         return chapterDao.getChapterWithLessonsBySubjectId(subjectId)
     }
+
+    override fun getLesson(lessonId: Int): Lesson? =
+        lessonDao.getLesson(lessonId)
 }
