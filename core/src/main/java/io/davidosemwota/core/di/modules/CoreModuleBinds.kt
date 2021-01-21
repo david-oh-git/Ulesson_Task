@@ -37,6 +37,7 @@ import io.davidosemwota.core.data.UlessonRepository
 import io.davidosemwota.core.data.UlessonRepositoryImpl
 import io.davidosemwota.core.data.source.local.ChapterDao
 import io.davidosemwota.core.data.source.local.LessonDao
+import io.davidosemwota.core.data.source.local.RecentLessonDao
 import io.davidosemwota.core.data.source.local.SubjectDao
 import io.davidosemwota.core.data.source.local.UlessonDatabase
 import io.davidosemwota.core.data.source.local.UlessonLocalSourceImpl
@@ -74,6 +75,11 @@ interface CoreModuleBinds {
         @Singleton
         fun provideSubjectDao(@ApplicationContext context: Context): SubjectDao =
             provideRoomDatabase(context).subjectDao()
+
+        @Provides
+        @Singleton
+        fun provideRecentLessonDao(@ApplicationContext context: Context): RecentLessonDao =
+            provideRoomDatabase(context).recentLessonDao()
 
         @Provides
         @Singleton

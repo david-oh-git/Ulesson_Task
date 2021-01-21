@@ -23,11 +23,12 @@
  */
 package io.davidosemwota.home.main
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import io.davidosemwota.core.data.UlessonRepository
+import io.davidosemwota.core.network.NetworkState
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -36,36 +37,45 @@ class HomeViewModel @Inject constructor(
     private val repository: UlessonRepository
 ) : ViewModel() {
 
+    private val networkState = liveData {
+        repository.networkStateFlow
+            .collect { emit(it) }
+    }
+
     val subjects = liveData {
         repository.getSubjects()
             .collect { emit(it) }
     }
 
-    val networkState = liveData {
-        repository.networkStateFlow
-            .collect { emit(it) }
+    val isCacheAvailable = Transformations.map(subjects) {
+        it.isNotEmpty()
     }
 
-//    val state = Transformations.map(networkState) {
-//
-//        when (it) {
-//            is NetworkState.Success -> {
-//                if (it.isEmptyResponse) {
-//                    HomeViewState.Empty
-//                } else {
-//                    HomeViewState.Loaded
-//                }
-//            }
-//            is NetworkState.Error -> {
-//                HomeViewState.Error
-//            }
-//            is NetworkState.Loading -> {
-//                HomeViewState.Loading
-//            }
-//        }
-//    }
+    val state = Transformations.map(networkState) {
 
-    val state = MutableLiveData(HomeViewState.Loaded)
+        when (it) {
+            is NetworkState.Success -> {
+                if (it.isEmptyResponse) {
+                    HomeViewState.Empty
+                } else {
+                    HomeViewState.Loaded
+                }
+            }
+            is NetworkState.Error -> {
+                if (subjects.value?.isNotEmpty() == true) {
+                    HomeViewState.Loaded
+                } else {
+                    HomeViewState.Error
+                }
+            }
+            is NetworkState.Loading -> {
+                if (subjects.value?.isNotEmpty() == true) {
+                    HomeViewState.Loaded
+                } else
+                    HomeViewState.Loading
+            }
+        }
+    }
 
     fun refreshDataFromRemoteSource() = viewModelScope.launch {
         repository.updateDataFromApi()

@@ -26,6 +26,7 @@ package io.davidosemwota.core.data.source.local
 import io.davidosemwota.core.data.Chapter
 import io.davidosemwota.core.data.ChapterWithLessons
 import io.davidosemwota.core.data.Lesson
+import io.davidosemwota.core.data.RecentLesson
 import io.davidosemwota.core.data.Subject
 import io.davidosemwota.core.data.UlessonLocalSource
 import javax.inject.Inject
@@ -38,7 +39,8 @@ class UlessonLocalSourceImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val subjectDao: SubjectDao,
     private val chapterDao: ChapterDao,
-    private val lessonDao: LessonDao
+    private val lessonDao: LessonDao,
+    private val recentLessonDao: RecentLessonDao
 ) : UlessonLocalSource {
 
     override suspend fun saveAllSubjects(subjects: List<Subject>) = withContext(ioDispatcher) {
@@ -82,4 +84,12 @@ class UlessonLocalSourceImpl @Inject constructor(
 
     override fun getLesson(lessonId: Int): Lesson? =
         lessonDao.getLesson(lessonId)
+
+    override suspend fun saveRecentLesson(recentLesson: RecentLesson) = withContext(ioDispatcher) {
+        recentLessonDao.save(recentLesson)
+    }
+
+    override fun getAllRecentLessons(): Flow<List<RecentLesson>> {
+        return recentLessonDao.getAllRecentLessons()
+    }
 }

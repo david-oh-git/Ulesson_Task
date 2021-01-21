@@ -23,29 +23,19 @@
  */
 package io.davidosemwota.core.data
 
-import io.davidosemwota.core.network.NetworkState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
 
-interface UlessonRepository {
-
-    val networkStateFlow: MutableStateFlow<NetworkState>
-
-    suspend fun saveAllSubjects(subjects: List<Subject>)
-
-    suspend fun saveChapter(chapter: Chapter)
-
-    suspend fun saveLesson(lesson: Lesson)
-
-    fun getSubjects(): Flow<List<Subject>>
-
-    suspend fun updateDataFromApi()
-
-    fun getChapterWithLessonsBySubjectId(subjectId: Int): List<ChapterWithLessons>
-
-    fun getLesson(lessonId: Int): Lesson?
-
-    suspend fun saveRecentLesson(recentLesson: RecentLesson)
-
-    fun getAllRecentLessons(): Flow<List<RecentLesson>>
-}
+@Entity(
+    tableName = "recentLessons",
+    indices = [Index(value = ["id"], unique = true)]
+)
+data class RecentLesson(
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    @ColumnInfo val lessonId: Int,
+    @ColumnInfo val lessonName: String,
+    @ColumnInfo val subjectName: String,
+    @ColumnInfo val mediaUrl: String
+)

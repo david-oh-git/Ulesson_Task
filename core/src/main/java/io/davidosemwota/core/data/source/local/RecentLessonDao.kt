@@ -21,31 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.core.data
+package io.davidosemwota.core.data.source.local
 
-import io.davidosemwota.core.network.NetworkState
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import io.davidosemwota.core.data.RecentLesson
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 
-interface UlessonRepository {
+@Dao
+interface RecentLessonDao {
 
-    val networkStateFlow: MutableStateFlow<NetworkState>
-
-    suspend fun saveAllSubjects(subjects: List<Subject>)
-
-    suspend fun saveChapter(chapter: Chapter)
-
-    suspend fun saveLesson(lesson: Lesson)
-
-    fun getSubjects(): Flow<List<Subject>>
-
-    suspend fun updateDataFromApi()
-
-    fun getChapterWithLessonsBySubjectId(subjectId: Int): List<ChapterWithLessons>
-
-    fun getLesson(lessonId: Int): Lesson?
-
-    suspend fun saveRecentLesson(recentLesson: RecentLesson)
-
+    @Query("SELECT * FROM recentLessons ORDER BY id")
     fun getAllRecentLessons(): Flow<List<RecentLesson>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun save(recentLesson: RecentLesson)
 }

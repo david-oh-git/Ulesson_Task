@@ -78,10 +78,11 @@ class HomeFragment : Fragment() {
 
         observe(viewModel.state, ::onViewStateChange)
         observe(viewModel.subjects, ::onViewDataChange)
-        setUpRecyclerView()
+        observe(viewModel.isCacheAvailable, ::onCacheDataIsAvailable)
+        setUpViews()
     }
 
-    private fun setUpRecyclerView() {
+    private fun setUpViews() {
         binding.includeHomeLoaded.subjectsList
             .apply {
                 this.adapter = subjectAdaptor
@@ -90,35 +91,36 @@ class HomeFragment : Fragment() {
                     resources.getDimension(R.dimen.view_subject_list_item_padding)
                 )
             }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.refreshDataFromRemoteSource()
+        }
     }
 
     private fun onViewStateChange(viewState: HomeViewState) {
 
-        binding.swipeRefreshLayout.isRefreshing = viewState.isRefreshing()
         when (viewState) {
             HomeViewState.Empty -> {
                 binding.includeHomeEmpty.root.visible = true
                 binding.includeHomeLoading.root.visible = false
                 binding.includeHomeLoaded.root.visible = false
                 binding.includeHomeError.root.visible = false
+
+                binding.swipeRefreshLayout.isRefreshing = false
             }
             HomeViewState.Error -> {
-                binding.includeHomeError.root.visible = true
-                binding.includeHomeEmpty.root.visible = false
-                binding.includeHomeLoading.root.visible = false
-                binding.includeHomeLoaded.root.visible = false
+                errorViewState()
             }
             HomeViewState.Loaded -> {
-                binding.includeHomeLoaded.root.visible = true
-                binding.includeHomeError.root.visible = false
-                binding.includeHomeEmpty.root.visible = false
-                binding.includeHomeLoading.root.visible = false
+                loadedViewState()
             }
             HomeViewState.Loading -> {
                 binding.includeHomeLoading.root.visible = true
                 binding.includeHomeEmpty.root.visible = false
                 binding.includeHomeLoaded.root.visible = false
                 binding.includeHomeError.root.visible = false
+
+                binding.swipeRefreshLayout.isRefreshing = true
             }
             HomeViewState.Refreshing -> {
             }
@@ -136,5 +138,29 @@ class HomeFragment : Fragment() {
         )
 
         findNavController().navigate(action)
+    }
+
+    private fun loadedViewState() {
+        binding.includeHomeError.root.visible = false
+        binding.includeHomeEmpty.root.visible = false
+        binding.includeHomeLoading.root.visible = false
+        binding.includeHomeLoaded.root.visible = true
+
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
+    private fun errorViewState() {
+        binding.includeHomeError.root.visible = true
+        binding.includeHomeEmpty.root.visible = false
+        binding.includeHomeLoading.root.visible = false
+        binding.includeHomeLoaded.root.visible = false
+
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
+    private fun onCacheDataIsAvailable(isCacheAvailable: Boolean) {
+        if (isCacheAvailable) {
+            loadedViewState()
+        }
     }
 }
