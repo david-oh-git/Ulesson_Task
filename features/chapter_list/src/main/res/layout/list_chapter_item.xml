@@ -7,13 +7,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.textview.MaterialTextView
-        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_marginStart="@dimen/view_chapter_list_item_padding"
         android:id="@+id/chapter_name"
         tools:text="Rational Numbers"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -21,8 +22,11 @@
         app:layout_constraintTop_toBottomOf="@id/chapter_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        tools:listitem="@layout/list_lesson_item"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

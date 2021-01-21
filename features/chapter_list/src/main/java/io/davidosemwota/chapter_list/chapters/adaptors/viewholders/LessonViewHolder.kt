@@ -27,6 +27,7 @@ import android.view.LayoutInflater
 import io.davidosemwota.chapter_list.databinding.ListLessonItemBinding
 import io.davidosemwota.core.data.Lesson
 import io.davidosemwota.ui.base.BaseViewHolder
+import io.davidosemwota.ui.extentions.setImage
 
 class LessonViewHolder(
     layoutInflater: LayoutInflater
@@ -35,5 +36,7 @@ class LessonViewHolder(
 ) {
 
     fun bind(lesson: Lesson) {
+        binding.lessonName.text = lesson.name
+        binding.lessonsImage.setImage(lesson.icon)
     }
 }

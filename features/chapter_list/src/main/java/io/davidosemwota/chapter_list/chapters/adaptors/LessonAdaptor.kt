@@ -42,6 +42,8 @@ class LessonAdaptor() : BaseListAdaptor<Lesson>(
     ) = LessonViewHolder(inflater)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        when (holder) {
+            is LessonViewHolder -> holder.bind(getItem(position))
+        }
     }
 }

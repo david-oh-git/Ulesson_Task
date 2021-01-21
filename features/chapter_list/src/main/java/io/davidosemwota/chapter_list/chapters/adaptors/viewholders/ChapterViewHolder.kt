@@ -24,10 +24,12 @@
 package io.davidosemwota.chapter_list.chapters.adaptors.viewholders
 
 import android.view.LayoutInflater
+import io.davidosemwota.chapter_list.R
+import io.davidosemwota.chapter_list.chapters.adaptors.LessonAdaptor
 import io.davidosemwota.chapter_list.databinding.ListChapterItemBinding
 import io.davidosemwota.core.data.ChapterWithLessons
 import io.davidosemwota.ui.base.BaseViewHolder
-import timber.log.Timber
+import io.davidosemwota.ui.extentions.setItemDecorationSpacing
 
 class ChapterViewHolder(
     layoutInflater: LayoutInflater
@@ -37,6 +39,13 @@ class ChapterViewHolder(
 
     fun bind(chapterWithLessons: ChapterWithLessons) {
         binding.chapterName.text = chapterWithLessons.chapter.name
-        Timber.d("Chapter name is ${chapterWithLessons.chapter.name}")
+        val lessonAdaptor = LessonAdaptor()
+        lessonAdaptor.submitList(chapterWithLessons.lessons)
+        binding.lessonsList.apply {
+            adapter = lessonAdaptor
+            setItemDecorationSpacing(
+                resources.getDimension(R.dimen.view_chapter_list_item_padding)
+            )
+        }
     }
 }

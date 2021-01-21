@@ -22,6 +22,8 @@
         style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
         tools:text="Living and Non-living things"
         android:textAlignment="center"
+        android:maxLines="2"
+        android:ellipsize="end"
         app:layout_constraintTop_toBottomOf="@id/lessons_image"
         app:layout_constraintStart_toStartOf="@id/lessons_image"
         app:layout_constraintEnd_toEndOf="@id/lessons_image"
