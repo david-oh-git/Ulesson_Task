@@ -79,7 +79,6 @@ class HomeFragment : Fragment() {
         observe(viewModel.state, ::onViewStateChange)
         observe(viewModel.subjects, ::onViewDataChange)
         setUpRecyclerView()
-        binding.includeHomeLoaded.toolbar.title = getString(R.string.home_welcome_msg)
     }
 
     private fun setUpRecyclerView() {

@@ -6,28 +6,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+
+    <com.google.android.material.textview.MaterialTextView
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:background="@color/toolbar_color"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintEnd_toEndOf="@id/end_guideline"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/baloo_chettan"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:text="@string/home_welcome_msg"
+        android:id="@+id/welcome_msg"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subjects_list"
-        app:layout_constraintTop_toBottomOf="@id/appbar"
-        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/welcome_msg"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintEnd_toEndOf="@id/end_guideline"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:listitem="@layout/list_subject_item"
         />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_guideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/end_guideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

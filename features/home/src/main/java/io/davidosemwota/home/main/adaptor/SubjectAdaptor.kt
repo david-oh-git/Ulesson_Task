@@ -45,7 +45,10 @@ class SubjectAdaptor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is SubjectViewHolder -> holder.bind(onItemClickAction, getItem(position))
+            is SubjectViewHolder -> holder.bind(
+                getItem(position),
+                onItemClickAction
+            )
         }
     }
 }

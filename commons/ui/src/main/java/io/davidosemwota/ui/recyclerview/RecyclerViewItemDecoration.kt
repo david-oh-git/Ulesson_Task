@@ -93,8 +93,8 @@ class RecyclerViewItemDecoration(
 
         outRect.top = spacingPx
         outRect.left = spacingPx
-//        outRect.right = if (position % cols == cols - 1) spacingPx else 0
-        outRect.right = spacingPx
+        outRect.right = if (position % cols == cols - 1) spacingPx else 0
+//        outRect.right = spacingPx
         outRect.bottom = if (position / cols == rows - 1) spacingPx else 0
     }
 

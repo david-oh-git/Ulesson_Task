@@ -36,9 +36,19 @@ class SubjectViewHolder(
     binding = ListSubjectItemBinding.inflate(inflater)
 ) {
 
-    fun bind(onItemClickAction: (String, Int) -> Unit, subject: Subject) {
+    private val color = listOf(
+        "#EA7052",
+        "#506AAC",
+        "#FCA964",
+        "#68BC98",
+        "#7B7FDA"
+    ).random()
+
+    fun bind(subject: Subject, onItemClickAction: (String, Int) -> Unit) {
         binding.apply {
-            cardContainer.setCardBackgroundColor(Color.LTGRAY)
+            cardContainer.setCardBackgroundColor(
+                Color.parseColor(color)
+            )
             cardContainer.setOnClickListener {
                 onItemClickAction.invoke(subject.name, subject.subjectId)
             }
