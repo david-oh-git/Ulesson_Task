@@ -32,6 +32,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
 import io.davidosemwota.chapter_list.databinding.FragmentLessonBinding
 import io.davidosemwota.chapter_list.lesson.di.inject
 import io.davidosemwota.core.data.Lesson
@@ -47,6 +49,7 @@ class LessonFragment : Fragment() {
     private val viewModel: LessonViewModel by viewModels {
         viewModelFactory
     }
+    private var player: SimpleExoPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +74,24 @@ class LessonFragment : Fragment() {
         observe(viewModel.lesson, ::onDataChange)
     }
 
+    override fun onStart() {
+        super.onStart()
+        initialisePlayer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        player?.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        player?.release()
+        player = null
+    }
+
     private fun setupViews(args: LessonFragmentArgs) {
         viewModel.getLesson(args.lessonId)
         binding.chapterName.text = args.chapterName
@@ -81,5 +102,17 @@ class LessonFragment : Fragment() {
 
     private fun onDataChange(data: Lesson) {
         binding.lessonName.text = data.name
+
+        val mediaItem = MediaItem.fromUri(data.mediaUrl)
+        player?.setMediaItem(mediaItem)
+        player?.prepare()
+    }
+
+    private fun initialisePlayer() {
+        player = SimpleExoPlayer.Builder(requireContext()).build()
+        binding.videoStreamer.player = player
+    }
+
+    private fun hideSystemUi() {
     }
 }
