@@ -2,5 +2,6 @@
 <resources>
 
     <color name="toolbar_color">#4A4A4A</color>
+    <color name="regular_text_color">@android:color/white</color>
 
 </resources>

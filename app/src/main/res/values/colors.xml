@@ -10,4 +10,7 @@
 
     <color name="toolbar_color">@android:color/white</color>
     <color name="status_bar_color">#C6C6C6</color>
+
+    <color name="regular_text_color">@color/black</color>
+
 </resources>

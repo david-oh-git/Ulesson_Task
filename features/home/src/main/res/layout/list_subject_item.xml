@@ -30,6 +30,7 @@
             android:layout_marginEnd="@dimen/subject_item_padding"
             android:layout_marginBottom="@dimen/subject_item_padding"
             android:textAllCaps="true"
+            android:textColor="@android:color/white"
             android:id="@+id/subject_name"
             android:textStyle="bold"
             android:fontFamily="@font/montserrat"

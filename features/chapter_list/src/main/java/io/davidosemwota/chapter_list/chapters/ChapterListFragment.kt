@@ -96,8 +96,8 @@ class ChapterListFragment : Fragment() {
 
     private fun setToolBarTitle() {
 
+        binding.toolbarText.text = args.subjectName
         binding.toolbar.apply {
-            title = args.subjectName
             setNavigationOnClickListener {
                 findNavController().popBackStack()
             }

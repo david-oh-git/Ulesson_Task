@@ -35,11 +35,15 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.textview.MaterialTextView
-        style="@style/TextAppearance.AppCompat.Title"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/regular_text_color"
+        android:layout_marginTop="8dp"
         android:id="@+id/lesson_name"
         tools:text="The number line representation"
         app:layout_constraintTop_toBottomOf="@id/video_streamer"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
@@ -48,9 +52,23 @@
         android:id="@+id/chapter_name"
         tools:text="The number line representation"
         app:layout_constraintTop_toBottomOf="@id/lesson_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintEnd_toEndOf="@id/end_guideline"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_guideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/end_guideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="8dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
