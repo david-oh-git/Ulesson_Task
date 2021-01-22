@@ -32,9 +32,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import io.davidosemwota.core.data.RecentLesson
 import io.davidosemwota.core.data.Subject
 import io.davidosemwota.home.R
 import io.davidosemwota.home.databinding.FragmentHomeBinding
+import io.davidosemwota.home.main.adaptor.RecentLessonAdaptor
 import io.davidosemwota.home.main.adaptor.SubjectAdaptor
 import io.davidosemwota.home.main.di.inject
 import io.davidosemwota.ui.extentions.observe
@@ -54,6 +56,10 @@ class HomeFragment : Fragment() {
 
     private val subjectAdaptor by lazy {
         SubjectAdaptor(::navigateToChapterListFragment)
+    }
+
+    private val recentLessonAdaptor by lazy {
+        RecentLessonAdaptor(::navigateToLessonFragment)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +83,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observe(viewModel.state, ::onViewStateChange)
-        observe(viewModel.subjects, ::onViewDataChange)
+        observe(viewModel.subjects, ::onSubjectListDataChange)
+        observe(viewModel.recentLessons, ::onRecentLessonDataChange)
         observe(viewModel.isCacheAvailable, ::onCacheDataIsAvailable)
         setUpViews()
     }
@@ -87,6 +94,14 @@ class HomeFragment : Fragment() {
             .apply {
                 this.adapter = subjectAdaptor
                 layoutManager = GridLayoutManager(requireContext(), 2)
+                setItemDecorationSpacing(
+                    resources.getDimension(R.dimen.view_subject_list_item_padding)
+                )
+            }
+
+        binding.includeHomeLoaded.recentlyWatchedList
+            .apply {
+                adapter = recentLessonAdaptor
                 setItemDecorationSpacing(
                     resources.getDimension(R.dimen.view_subject_list_item_padding)
                 )
@@ -127,8 +142,12 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onViewDataChange(subjects: List<Subject>) {
+    private fun onSubjectListDataChange(subjects: List<Subject>) {
         subjectAdaptor.submitList(subjects)
+    }
+
+    private fun onRecentLessonDataChange(recentLessons: List<RecentLesson>) {
+        recentLessonAdaptor.submitList(recentLessons)
     }
 
     private fun navigateToChapterListFragment(subjectName: String, subjectId: Int) {
@@ -137,6 +156,14 @@ class HomeFragment : Fragment() {
             subjectName = subjectName
         )
 
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToLessonFragment(chapterName: String, lessonId: Int) {
+        val action = HomeFragmentDirections.actionHomeFragmentToLessonFragment(
+            lessonId = lessonId,
+            chapterName = chapterName
+        )
         findNavController().navigate(action)
     }
 

@@ -47,6 +47,11 @@ class HomeViewModel @Inject constructor(
             .collect { emit(it) }
     }
 
+    val recentLessons = liveData {
+        repository.getAllRecentLessons()
+            .collect { emit(it) }
+    }
+
     val isCacheAvailable = Transformations.map(subjects) {
         it.isNotEmpty()
     }

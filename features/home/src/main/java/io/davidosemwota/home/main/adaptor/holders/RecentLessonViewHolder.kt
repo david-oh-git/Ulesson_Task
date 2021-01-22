@@ -21,22 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.davidosemwota.core.data
+package io.davidosemwota.home.main.adaptor.holders
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import android.graphics.Color
+import android.view.LayoutInflater
+import io.davidosemwota.core.data.RecentLesson
+import io.davidosemwota.home.databinding.ListRecentLessonItemBinding
+import io.davidosemwota.ui.base.BaseViewHolder
+import io.davidosemwota.ui.extentions.setImage
 
-@Entity(
-    tableName = "recentLessons",
-    indices = [Index(value = ["id"], unique = true)]
-)
-data class RecentLesson(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo val lessonId: Int,
-    @ColumnInfo val lessonName: String,
-    @ColumnInfo val subjectName: String,
-    @ColumnInfo val chapterName: String,
-    @ColumnInfo val mediaUrl: String
-)
+class RecentLessonViewHolder(
+    layoutInflater: LayoutInflater
+) : BaseViewHolder<ListRecentLessonItemBinding>(
+    binding = ListRecentLessonItemBinding.inflate(layoutInflater)
+) {
+
+    fun bind(
+        color: String,
+        recentLesson: RecentLesson,
+        lessonItemClickAction: (String, Int) -> Unit
+    ) {
+
+        binding.recentLessonSubjectName.apply {
+            setTextColor(
+                Color.parseColor(color)
+            )
+            text = recentLesson.subjectName
+        }
+        binding.recentLessonName.text = recentLesson.lessonName
+        binding.recentLessonImage.setImage(recentLesson.mediaUrl)
+
+        binding.container.setOnClickListener {
+            lessonItemClickAction.invoke(recentLesson.chapterName, recentLesson.lessonId)
+        }
+    }
+}
