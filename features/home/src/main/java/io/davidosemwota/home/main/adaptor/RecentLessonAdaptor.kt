@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) $today.day/$today.month/2021 $today.hour24:$today.minute   David Osemwota.
+ * Copyright (c) 2021   David Osemwota.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@ import io.davidosemwota.ui.base.BaseListAdaptor
 class RecentLessonAdaptor(
     private val onItemClickAction: (String, Int) -> Unit
 ) : BaseListAdaptor<RecentLesson>(
-    itemsSame = { old, new -> old.lessonId == new.lessonId },
+    itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
 ) {
 
@@ -44,6 +44,10 @@ class RecentLessonAdaptor(
         "#68BC98",
         "#7B7FDA"
     )
+
+    var colapse = false
+        private set
+    private val COLLAPSE_COUNT = 2
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -59,5 +63,17 @@ class RecentLessonAdaptor(
                 onItemClickAction
             )
         }
+    }
+
+    override fun getItemCount(): Int {
+        if (colapse && super.getItemCount() > 2)
+            return COLLAPSE_COUNT
+
+        return super.getItemCount()
+    }
+
+    fun collapseList() {
+        colapse = !colapse
+        notifyDataSetChanged()
     }
 }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) $today.day/$today.month/2021 $today.hour24:$today.minute   David Osemwota.
+ * Copyright (c) 2021   David Osemwota.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,7 @@ import io.davidosemwota.core.data.Lesson
 import io.davidosemwota.ui.base.BaseListAdaptor
 
 class LessonAdaptor(
+    private val chapterName: String,
     private val lessonItemClickAction: (String, Int) -> Unit
 ) : BaseListAdaptor<Lesson>(
     contentsSame = { old, new -> old == new },
@@ -46,6 +47,7 @@ class LessonAdaptor(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is LessonViewHolder -> holder.bind(
+                chapterName,
                 getItem(position),
                 lessonItemClickAction
             )

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) $today.day/$today.month/2021 $today.hour24:$today.minute   David Osemwota.
+ * Copyright (c) 2021   David Osemwota.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
     private fun setUpViews() {
         binding.includeHomeLoaded.subjectsList
             .apply {
-                this.adapter = subjectAdaptor
+                adapter = subjectAdaptor
                 layoutManager = GridLayoutManager(requireContext(), 2)
                 setItemDecorationSpacing(
                     resources.getDimension(R.dimen.view_subject_list_item_padding)
@@ -109,6 +109,17 @@ class HomeFragment : Fragment() {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshDataFromRemoteSource()
+        }
+
+        binding.collapseButton.apply {
+            text = getString(R.string.home_see_less_btn)
+            setOnClickListener {
+                recentLessonAdaptor.collapseList()
+                if (recentLessonAdaptor.colapse) {
+                    this.text = getString(R.string.home_view_all_btn)
+                } else
+                    this.text = getString(R.string.home_see_less_btn)
+            }
         }
     }
 
@@ -134,6 +145,7 @@ class HomeFragment : Fragment() {
                 binding.includeHomeEmpty.root.visible = false
                 binding.includeHomeLoaded.root.visible = false
                 binding.includeHomeError.root.visible = false
+                binding.collapseButton.visible = false
 
                 binding.swipeRefreshLayout.isRefreshing = true
             }
@@ -147,7 +159,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun onRecentLessonDataChange(recentLessons: List<RecentLesson>) {
-        recentLessonAdaptor.submitList(recentLessons)
+        recentLessonAdaptor.submitList(recentLessons.reversed())
+        binding.collapseButton.visible = recentLessons.size > 2
     }
 
     private fun navigateToChapterListFragment(subjectName: String, subjectId: Int) {

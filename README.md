@@ -1,5 +1,11 @@
 # Ulesson assessment app
 
+## Architecture
+
+- A single activity architecture making use of Android Jetpack's navigation.
+- Makes use of Model-View-ViewModel pattern for separation of various app components.
+- Uses modular app architecture that allows various parts of the app to be developed in isolation.
+
 ## Dependencies
 
 - [Android Jetpack](https://developer.android.com/jetpack)

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) $today.day/$today.month/2021 $today.hour24:$today.minute   David Osemwota.
+ * Copyright (c) 2021   David Osemwota.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -86,6 +86,12 @@ class UlessonRepositoryImpl @Inject constructor(
 
     override fun getLesson(lessonId: Int): Lesson? =
         localSource.getLesson(lessonId)
+
+    override fun getSubject(subjectId: Int): Subject? =
+        localSource.getSubject(subjectId)
+
+    override fun getChapter(chapterId: Int, subjectId: Int): Chapter? =
+        localSource.getChapter(chapterId, subjectId)
 
     override suspend fun saveRecentLesson(recentLesson: RecentLesson) = withContext(ioDispatcher) {
         localSource.saveRecentLesson(recentLesson)

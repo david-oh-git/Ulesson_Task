@@ -3,34 +3,35 @@
     android:id="@+id/container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/recent_lesson_image"
-        tools:src="@tools:sample/avatars"
+        android:src="@drawable/ic_video"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@id/image_size_guideline"
         app:layout_constraintDimensionRatio="1"
-        android:layout_width="0dp"
-        android:layout_height="0dp" />
+        android:layout_width="90dp"
+        android:layout_height="90dp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/recent_lesson_subject_name"
         tools:text="Maths"
-        android:textSize="14sp"
-        android:textAlignment="center"
         android:maxLines="2"
         android:ellipsize="end"
-        android:gravity="bottom|center"
+        android:gravity="bottom"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@id/recent_lesson_image"
         app:layout_constraintStart_toStartOf="@id/image_size_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/recent_lesson_name"
         android:layout_width="0dp"
-        android:layout_height="0dp" />
+        android:layout_height="wrap_content" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/recent_lesson_name"
@@ -41,12 +42,11 @@
         app:layout_constraintStart_toStartOf="@id/recent_lesson_subject_name"
         app:layout_constraintEnd_toEndOf="@id/recent_lesson_subject_name"
         app:layout_constraintBottom_toBottomOf="@id/recent_lesson_image"
-        android:textAlignment="center"
-        android:gravity="top|center"
+        android:gravity="top"
         android:maxLines="2"
         android:ellipsize="end"
         android:layout_width="0dp"
-        android:layout_height="0dp" />
+        android:layout_height="wrap_content" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/image_size_guideline"
