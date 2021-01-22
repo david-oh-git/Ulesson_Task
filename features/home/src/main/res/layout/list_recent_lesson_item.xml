@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/recent_lesson_image"
+        tools:src="@tools:sample/avatars"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/image_size_guideline"
+        app:layout_constraintDimensionRatio="1"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/recent_lesson_subject_name"
+        tools:text="Maths"
+        android:textSize="14sp"
+        android:textAlignment="center"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:gravity="bottom|center"
+        app:layout_constraintTop_toTopOf="@id/recent_lesson_image"
+        app:layout_constraintStart_toStartOf="@id/image_size_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/recent_lesson_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/recent_lesson_name"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        tools:text="Living and Non-living things"
+        app:layout_constraintTop_toBottomOf="@id/recent_lesson_subject_name"
+        app:layout_constraintStart_toStartOf="@id/recent_lesson_subject_name"
+        app:layout_constraintEnd_toEndOf="@id/recent_lesson_subject_name"
+        app:layout_constraintBottom_toBottomOf="@id/recent_lesson_image"
+        android:textAlignment="center"
+        android:gravity="top|center"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/image_size_guideline"
+        app:layout_constraintGuide_percent="0.3"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
