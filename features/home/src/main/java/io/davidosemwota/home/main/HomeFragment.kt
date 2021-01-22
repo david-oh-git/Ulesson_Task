@@ -32,9 +32,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import io.davidosemwota.core.data.RecentLesson
 import io.davidosemwota.core.data.Subject
 import io.davidosemwota.home.R
 import io.davidosemwota.home.databinding.FragmentHomeBinding
+import io.davidosemwota.home.main.adaptor.RecentLessonAdaptor
 import io.davidosemwota.home.main.adaptor.SubjectAdaptor
 import io.davidosemwota.home.main.di.inject
 import io.davidosemwota.ui.extentions.observe
@@ -52,8 +54,12 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
-    private val adaptor by lazy {
-        SubjectAdaptor(::onItemClickAction)
+    private val subjectAdaptor by lazy {
+        SubjectAdaptor(::navigateToChapterListFragment)
+    }
+
+    private val recentLessonAdaptor by lazy {
+        RecentLessonAdaptor(::navigateToLessonFragment)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,65 +83,111 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observe(viewModel.state, ::onViewStateChange)
-        observe(viewModel.subjects, ::onViewDataChange)
-        setUpRecyclerView()
-        binding.includeHomeLoaded.toolbar.title = getString(R.string.home_welcome_msg)
+        observe(viewModel.subjects, ::onSubjectListDataChange)
+        observe(viewModel.recentLessons, ::onRecentLessonDataChange)
+        observe(viewModel.isCacheAvailable, ::onCacheDataIsAvailable)
+        setUpViews()
     }
 
-    private fun setUpRecyclerView() {
+    private fun setUpViews() {
         binding.includeHomeLoaded.subjectsList
             .apply {
-                this.adapter = adaptor
+                this.adapter = subjectAdaptor
                 layoutManager = GridLayoutManager(requireContext(), 2)
                 setItemDecorationSpacing(
                     resources.getDimension(R.dimen.view_subject_list_item_padding)
                 )
             }
+
+        binding.includeHomeLoaded.recentlyWatchedList
+            .apply {
+                adapter = recentLessonAdaptor
+                setItemDecorationSpacing(
+                    resources.getDimension(R.dimen.view_subject_list_item_padding)
+                )
+            }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.refreshDataFromRemoteSource()
+        }
     }
 
     private fun onViewStateChange(viewState: HomeViewState) {
 
-        binding.swipeRefreshLayout.isRefreshing = viewState.isRefreshing()
         when (viewState) {
             HomeViewState.Empty -> {
                 binding.includeHomeEmpty.root.visible = true
                 binding.includeHomeLoading.root.visible = false
                 binding.includeHomeLoaded.root.visible = false
                 binding.includeHomeError.root.visible = false
+
+                binding.swipeRefreshLayout.isRefreshing = false
             }
             HomeViewState.Error -> {
-                binding.includeHomeError.root.visible = true
-                binding.includeHomeEmpty.root.visible = false
-                binding.includeHomeLoading.root.visible = false
-                binding.includeHomeLoaded.root.visible = false
+                errorViewState()
             }
             HomeViewState.Loaded -> {
-                binding.includeHomeLoaded.root.visible = true
-                binding.includeHomeError.root.visible = false
-                binding.includeHomeEmpty.root.visible = false
-                binding.includeHomeLoading.root.visible = false
+                loadedViewState()
             }
             HomeViewState.Loading -> {
                 binding.includeHomeLoading.root.visible = true
                 binding.includeHomeEmpty.root.visible = false
                 binding.includeHomeLoaded.root.visible = false
                 binding.includeHomeError.root.visible = false
+
+                binding.swipeRefreshLayout.isRefreshing = true
             }
             HomeViewState.Refreshing -> {
             }
         }
     }
 
-    private fun onViewDataChange(subjects: List<Subject>) {
-        adaptor.submitList(subjects)
+    private fun onSubjectListDataChange(subjects: List<Subject>) {
+        subjectAdaptor.submitList(subjects)
     }
 
-    private fun onItemClickAction(subjectName: String, subjectId: Int) {
+    private fun onRecentLessonDataChange(recentLessons: List<RecentLesson>) {
+        recentLessonAdaptor.submitList(recentLessons)
+    }
+
+    private fun navigateToChapterListFragment(subjectName: String, subjectId: Int) {
         val action = HomeFragmentDirections.actionHomeFragmentToChapterListFragment(
             subjectId = subjectId,
             subjectName = subjectName
         )
 
         findNavController().navigate(action)
+    }
+
+    private fun navigateToLessonFragment(chapterName: String, lessonId: Int) {
+        val action = HomeFragmentDirections.actionHomeFragmentToLessonFragment(
+            lessonId = lessonId,
+            chapterName = chapterName
+        )
+        findNavController().navigate(action)
+    }
+
+    private fun loadedViewState() {
+        binding.includeHomeError.root.visible = false
+        binding.includeHomeEmpty.root.visible = false
+        binding.includeHomeLoading.root.visible = false
+        binding.includeHomeLoaded.root.visible = true
+
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
+    private fun errorViewState() {
+        binding.includeHomeError.root.visible = true
+        binding.includeHomeEmpty.root.visible = false
+        binding.includeHomeLoading.root.visible = false
+        binding.includeHomeLoaded.root.visible = false
+
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
+    private fun onCacheDataIsAvailable(isCacheAvailable: Boolean) {
+        if (isCacheAvailable) {
+            loadedViewState()
+        }
     }
 }

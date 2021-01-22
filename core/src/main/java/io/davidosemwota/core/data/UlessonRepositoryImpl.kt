@@ -80,9 +80,19 @@ class UlessonRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getChapterWithLessonsBySubjectId(subjectId: Int): Flow<List<ChapterWithLessons>> {
+    override fun getChapterWithLessonsBySubjectId(subjectId: Int): List<ChapterWithLessons> {
         return localSource.getChapterWithLessonsBySubjectId(subjectId)
     }
+
+    override fun getLesson(lessonId: Int): Lesson? =
+        localSource.getLesson(lessonId)
+
+    override suspend fun saveRecentLesson(recentLesson: RecentLesson) = withContext(ioDispatcher) {
+        localSource.saveRecentLesson(recentLesson)
+    }
+
+    override fun getAllRecentLessons(): Flow<List<RecentLesson>> =
+        localSource.getAllRecentLessons()
 
     private suspend fun parseResponseData(responseData: ResponseData) = withContext(ioDispatcher) {
         val subjects = subjectListMapper.transform(responseData)

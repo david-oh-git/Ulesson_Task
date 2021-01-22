@@ -3,7 +3,7 @@
     android:id="@+id/card_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:cardElevation="4dp"
     app:cardCornerRadius="12dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,22 +11,29 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="80dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/subject_icon"
             tools:src="@tools:sample/avatars"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="20dp"
-            android:layout_height="20dp"/>
+            android:layout_marginTop="@dimen/subject_item_padding"
+            android:layout_marginStart="@dimen/subject_item_padding"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
 
         <com.google.android.material.textview.MaterialTextView
-            app:layout_constraintTop_toBottomOf="@id/subject_icon"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="@tools:sample/full_names"
+            android:layout_marginEnd="@dimen/subject_item_padding"
+            android:layout_marginBottom="@dimen/subject_item_padding"
             android:textAllCaps="true"
+            android:textColor="@android:color/white"
             android:id="@+id/subject_name"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
 

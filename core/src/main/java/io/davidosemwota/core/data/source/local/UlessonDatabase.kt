@@ -27,10 +27,11 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import io.davidosemwota.core.data.Chapter
 import io.davidosemwota.core.data.Lesson
+import io.davidosemwota.core.data.RecentLesson
 import io.davidosemwota.core.data.Subject
 
 @Database(
-    entities = [Subject::class, Chapter::class, Lesson::class],
+    entities = [Subject::class, Chapter::class, Lesson::class, RecentLesson::class],
     version = 1,
     exportSchema = false
 )
@@ -41,4 +42,6 @@ abstract class UlessonDatabase : RoomDatabase() {
     abstract fun chapterDao(): ChapterDao
 
     abstract fun lessonDao(): LessonDao
+
+    abstract fun recentLessonDao(): RecentLessonDao
 }

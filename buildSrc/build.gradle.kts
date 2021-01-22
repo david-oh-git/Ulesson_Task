@@ -22,7 +22,7 @@ kotlinDslPluginOptions {
 object AppPlugins {
 
     private object Versions {
-        const val build_tools = "4.1.1"
+        const val build_tools = "4.1.2"
         const val kotlin = "1.4.21"
         const val spotless = "5.6.1"
         const val ktlint = "0.39.0"

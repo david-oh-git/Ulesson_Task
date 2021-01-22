@@ -36,9 +36,11 @@ class SubjectViewHolder(
     binding = ListSubjectItemBinding.inflate(inflater)
 ) {
 
-    fun bind(onItemClickAction: (String, Int) -> Unit, subject: Subject) {
+    fun bind(color: String, subject: Subject, onItemClickAction: (String, Int) -> Unit) {
         binding.apply {
-            cardContainer.setCardBackgroundColor(Color.LTGRAY)
+            cardContainer.setCardBackgroundColor(
+                Color.parseColor(color)
+            )
             cardContainer.setOnClickListener {
                 onItemClickAction.invoke(subject.name, subject.subjectId)
             }

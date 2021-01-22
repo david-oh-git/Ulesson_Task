@@ -37,6 +37,14 @@ class SubjectAdaptor(
     contentsSame = { old, new -> old == new }
 ) {
 
+    private val itemBackgroundColors = listOf(
+        "#EA7052",
+        "#506AAC",
+        "#FCA964",
+        "#68BC98",
+        "#7B7FDA"
+    )
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         inflater: LayoutInflater,
@@ -45,7 +53,11 @@ class SubjectAdaptor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is SubjectViewHolder -> holder.bind(onItemClickAction, getItem(position))
+            is SubjectViewHolder -> holder.bind(
+                itemBackgroundColors[position % itemBackgroundColors.size],
+                getItem(position),
+                onItemClickAction
+            )
         }
     }
 }

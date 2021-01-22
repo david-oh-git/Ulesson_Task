@@ -26,4 +26,5 @@
 <resources>
 
     <dimen name="view_subject_list_item_padding">6dp</dimen>
+    <dimen name="subject_item_padding">8dp</dimen>
 </resources>

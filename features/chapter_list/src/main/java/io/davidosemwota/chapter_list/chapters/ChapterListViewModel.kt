@@ -23,7 +23,36 @@
  */
 package io.davidosemwota.chapter_list.chapters
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import io.davidosemwota.core.data.ChapterWithLessons
+import io.davidosemwota.core.data.UlessonRepository
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ChapterListViewModel @Inject constructor() : ViewModel()
+class ChapterListViewModel @Inject constructor(
+    private val repository: UlessonRepository
+) : ViewModel() {
+
+    private val _chapterWithLessons = MutableLiveData<List<ChapterWithLessons>>()
+    val chapterWithLessons: LiveData<List<ChapterWithLessons>> = _chapterWithLessons
+
+    val state = Transformations.map(chapterWithLessons) {
+        when {
+            it.isEmpty() -> ChapterListViewState.Empty
+            it.isNotEmpty() -> ChapterListViewState.Loaded
+            it == null -> ChapterListViewState.Error
+            else -> ChapterListViewState.Loading
+        }
+    }
+
+    fun getChapters(subjectId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        _chapterWithLessons.postValue(
+            repository.getChapterWithLessonsBySubjectId(subjectId)
+        )
+    }
+}

@@ -38,7 +38,7 @@ import kotlin.random.Random
  * @param url Image url to download and set as drawable.
  * @param placeholderId Drawable resource identifier to set while downloading image.
  */
-fun AppCompatImageView.setImage(url: String, @DrawableRes placeholderId: Int?) {
+fun AppCompatImageView.setImage(url: String, @DrawableRes placeholderId: Int? = null) {
 
     with(this) {
         load(url) {

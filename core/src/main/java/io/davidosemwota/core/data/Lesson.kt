@@ -25,10 +25,12 @@ package io.davidosemwota.core.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "lessons"
+    tableName = "lessons",
+    indices = [Index(value = ["lessonId"], unique = true)]
 )
 data class Lesson(
     @PrimaryKey(autoGenerate = true) val lessonId: Int,

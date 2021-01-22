@@ -26,20 +26,21 @@ package io.davidosemwota.core.data.source.local
 import io.davidosemwota.core.data.Chapter
 import io.davidosemwota.core.data.ChapterWithLessons
 import io.davidosemwota.core.data.Lesson
+import io.davidosemwota.core.data.RecentLesson
 import io.davidosemwota.core.data.Subject
 import io.davidosemwota.core.data.UlessonLocalSource
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 
 class UlessonLocalSourceImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val subjectDao: SubjectDao,
     private val chapterDao: ChapterDao,
-    private val lessonDao: LessonDao
+    private val lessonDao: LessonDao,
+    private val recentLessonDao: RecentLessonDao
 ) : UlessonLocalSource {
 
     override suspend fun saveAllSubjects(subjects: List<Subject>) = withContext(ioDispatcher) {
@@ -77,8 +78,18 @@ class UlessonLocalSourceImpl @Inject constructor(
     override fun getSubjects(): Flow<List<Subject>> =
         subjectDao.getSubjects()
 
-    override fun getChapterWithLessonsBySubjectId(subjectId: Int): Flow<List<ChapterWithLessons>> {
-        val chapterWithLessons = chapterDao.getChapterWithLessonsBySubjectId(subjectId)
-        return MutableStateFlow(chapterWithLessons)
+    override fun getChapterWithLessonsBySubjectId(subjectId: Int): List<ChapterWithLessons> {
+        return chapterDao.getChapterWithLessonsBySubjectId(subjectId)
+    }
+
+    override fun getLesson(lessonId: Int): Lesson? =
+        lessonDao.getLesson(lessonId)
+
+    override suspend fun saveRecentLesson(recentLesson: RecentLesson) = withContext(ioDispatcher) {
+        recentLessonDao.save(recentLesson)
+    }
+
+    override fun getAllRecentLessons(): Flow<List<RecentLesson>> {
+        return recentLessonDao.getAllRecentLessons()
     }
 }

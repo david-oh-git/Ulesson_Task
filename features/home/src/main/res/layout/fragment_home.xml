@@ -12,16 +12,16 @@
         android:layout_height="match_parent">
 
         <include
+            android:id="@+id/include_home_loaded"
+            layout="@layout/view_home_loaded" />
+
+        <include
             android:id="@+id/include_home_error"
             layout="@layout/view_home_error" />
 
         <include
             android:id="@+id/include_home_empty"
             layout="@layout/view_home_empty" />
-
-        <include
-            android:id="@+id/include_home_loaded"
-            layout="@layout/view_home_loaded" />
 
         <include
             android:id="@+id/include_home_loading"
