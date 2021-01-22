@@ -6,6 +6,8 @@
 - Makes use of Model-View-ViewModel pattern for separation of various app components.
 - Uses modular app architecture that allows various parts of the app to be developed in isolation.
 
+<img src="screenshots/main.png" width="250" align="right" hspace="20">
+
 ## Dependencies
 
 - [Android Jetpack](https://developer.android.com/jetpack)
