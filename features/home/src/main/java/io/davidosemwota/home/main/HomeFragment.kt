@@ -110,6 +110,17 @@ class HomeFragment : Fragment() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshDataFromRemoteSource()
         }
+
+        binding.collapseButton.apply {
+            text = getString(R.string.home_see_less_btn)
+            setOnClickListener {
+                recentLessonAdaptor.collapseList()
+                if (recentLessonAdaptor.colapse) {
+                    this.text = getString(R.string.home_view_all_btn)
+                } else
+                    this.text = getString(R.string.home_see_less_btn)
+            }
+        }
     }
 
     private fun onViewStateChange(viewState: HomeViewState) {
@@ -134,6 +145,7 @@ class HomeFragment : Fragment() {
                 binding.includeHomeEmpty.root.visible = false
                 binding.includeHomeLoaded.root.visible = false
                 binding.includeHomeError.root.visible = false
+                binding.collapseButton.visible = false
 
                 binding.swipeRefreshLayout.isRefreshing = true
             }
@@ -148,6 +160,7 @@ class HomeFragment : Fragment() {
 
     private fun onRecentLessonDataChange(recentLessons: List<RecentLesson>) {
         recentLessonAdaptor.submitList(recentLessons.reversed())
+        binding.collapseButton.visible = recentLessons.size > 2
     }
 
     private fun navigateToChapterListFragment(subjectName: String, subjectId: Int) {

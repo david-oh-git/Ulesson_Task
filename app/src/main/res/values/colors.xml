@@ -12,5 +12,6 @@
     <color name="status_bar_color">#C6C6C6</color>
 
     <color name="regular_text_color">@color/black</color>
+    <color name="app_green">#68BC98</color>
 
 </resources>

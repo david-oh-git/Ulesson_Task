@@ -45,6 +45,10 @@ class RecentLessonAdaptor(
         "#7B7FDA"
     )
 
+    var colapse = false
+        private set
+    private val COLLAPSE_COUNT = 2
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         inflater: LayoutInflater,
@@ -59,5 +63,17 @@ class RecentLessonAdaptor(
                 onItemClickAction
             )
         }
+    }
+
+    override fun getItemCount(): Int {
+        if (colapse && super.getItemCount() > 2)
+            return COLLAPSE_COUNT
+
+        return super.getItemCount()
+    }
+
+    fun collapseList() {
+        colapse = !colapse
+        notifyDataSetChanged()
     }
 }
