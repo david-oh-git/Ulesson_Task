@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) $today.day/$today.month/2021 $today.hour24:$today.minute   David Osemwota.
+ * Copyright (c) 2021   David Osemwota.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -128,7 +128,7 @@ internal class ChapterDaoTest {
         chapterDao.insert(expectedChapter)
 
         // Act; get all chapterWithLessons
-        val result = chapterDao.getChapterWithLessonsBySubjectId(subjectId)
+        val result = chapterDao.getChaptersWithLessonsBySubjectId(subjectId)
         assertThat(result.isEmpty()).isFalse()
         val chapterWithLessons = result[0]
         assertThat(chapterWithLessons.chapter).isEqualTo(expectedChapter)

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) $today.day/$today.month/2021 $today.hour24:$today.minute   David Osemwota.
+ * Copyright (c) 2021   David Osemwota.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,10 @@ interface UlessonRepository {
     fun getChapterWithLessonsBySubjectId(subjectId: Int): List<ChapterWithLessons>
 
     fun getLesson(lessonId: Int): Lesson?
+
+    fun getSubject(subjectId: Int): Subject?
+
+    fun getChapter(chapterId: Int, subjectId: Int): Chapter?
 
     suspend fun saveRecentLesson(recentLesson: RecentLesson)
 

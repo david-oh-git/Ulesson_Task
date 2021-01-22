@@ -11,9 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/include_home_loaded"
-            layout="@layout/view_home_loaded" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/include_home_loaded"
+                layout="@layout/view_home_loaded" />
+
+        </androidx.core.widget.NestedScrollView>
 
         <include
             android:id="@+id/include_home_error"

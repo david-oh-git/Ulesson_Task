@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) $today.day/$today.month/2021 $today.hour24:$today.minute   David Osemwota.
+ * Copyright (c) 2021   David Osemwota.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
     private fun setUpViews() {
         binding.includeHomeLoaded.subjectsList
             .apply {
-                this.adapter = subjectAdaptor
+                adapter = subjectAdaptor
                 layoutManager = GridLayoutManager(requireContext(), 2)
                 setItemDecorationSpacing(
                     resources.getDimension(R.dimen.view_subject_list_item_padding)
@@ -147,7 +147,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun onRecentLessonDataChange(recentLessons: List<RecentLesson>) {
-        recentLessonAdaptor.submitList(recentLessons)
+        recentLessonAdaptor.submitList(recentLessons.reversed())
     }
 
     private fun navigateToChapterListFragment(subjectName: String, subjectId: Int) {

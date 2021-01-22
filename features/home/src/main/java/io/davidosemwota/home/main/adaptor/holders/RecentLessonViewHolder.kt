@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) $today.day/$today.month/2021 $today.hour24:$today.minute   David Osemwota.
+ * Copyright (c) 2021   David Osemwota.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,6 @@ import android.view.LayoutInflater
 import io.davidosemwota.core.data.RecentLesson
 import io.davidosemwota.home.databinding.ListRecentLessonItemBinding
 import io.davidosemwota.ui.base.BaseViewHolder
-import io.davidosemwota.ui.extentions.setImage
 
 class RecentLessonViewHolder(
     layoutInflater: LayoutInflater
@@ -41,7 +40,6 @@ class RecentLessonViewHolder(
         recentLesson: RecentLesson,
         lessonItemClickAction: (String, Int) -> Unit
     ) {
-
         binding.recentLessonSubjectName.apply {
             setTextColor(
                 Color.parseColor(color)
@@ -49,10 +47,12 @@ class RecentLessonViewHolder(
             text = recentLesson.subjectName
         }
         binding.recentLessonName.text = recentLesson.lessonName
-        binding.recentLessonImage.setImage(recentLesson.mediaUrl)
 
         binding.container.setOnClickListener {
-            lessonItemClickAction.invoke(recentLesson.chapterName, recentLesson.lessonId)
+            lessonItemClickAction.invoke(
+                recentLesson.chapterName,
+                recentLesson.lessonId
+            )
         }
     }
 }
