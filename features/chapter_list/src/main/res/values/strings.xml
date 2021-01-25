@@ -1,6 +1,4 @@
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="chapter_list_empty_txt">No items to display</string>
     <string name="chapter_list_error_text">Error fetching data !</string>
 </resources>

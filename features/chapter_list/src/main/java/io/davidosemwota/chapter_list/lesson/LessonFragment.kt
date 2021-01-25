@@ -46,10 +46,10 @@ import javax.inject.Inject
 class LessonFragment : Fragment() {
 
     private lateinit var binding: FragmentLessonBinding
-    private val args: LessonFragmentArgs by navArgs()
+    val args: LessonFragmentArgs by navArgs()
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val viewModel: LessonViewModel by viewModels {
+    val viewModel: LessonViewModel by viewModels {
         viewModelFactory
     }
     private var player: SimpleExoPlayer? = null
@@ -66,9 +66,7 @@ class LessonFragment : Fragment() {
                 super.onIsPlayingChanged(isPlaying)
 
                 if (isPlaying) {
-                    viewModel.saveRecentLesson(
-                        lessonId = args.lessonId
-                    )
+                    onSaveRecentLessonEvent()
                 }
             }
         }
@@ -142,6 +140,12 @@ class LessonFragment : Fragment() {
         player = SimpleExoPlayer.Builder(requireContext()).build()
         playerListener?.let { player?.addListener(it) }
         binding.videoStreamer.player = player
+    }
+
+    fun onSaveRecentLessonEvent() {
+        viewModel.saveRecentLesson(
+            lessonId = args.lessonId
+        )
     }
 
     private fun hideSystemUi() {

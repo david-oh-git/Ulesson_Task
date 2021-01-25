@@ -2,5 +2,5 @@
     <string name="app_name">Ulesson Task</string>
     <string name="title_home">Home</string>
     <string name="title_main">Module Title</string>
-    <string name="title_chapter_list">Module Title</string>
+    <string name="title_chapter_list">Chapter List</string>
 </resources>
