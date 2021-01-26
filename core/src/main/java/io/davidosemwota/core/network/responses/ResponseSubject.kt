@@ -23,6 +23,8 @@
  */
 package io.davidosemwota.core.network.responses
 
+import androidx.annotation.Keep
+
 /**
  * Response format for a subject from the API.
  *
@@ -31,6 +33,7 @@ package io.davidosemwota.core.network.responses
  * @param icon The url for the subject's icon.
  * @param chapters A list of [ResponseChapter]s.
  */
+@Keep
 data class ResponseSubject(
     val id: Int,
     val name: String,

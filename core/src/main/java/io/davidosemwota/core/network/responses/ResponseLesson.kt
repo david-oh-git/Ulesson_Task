@@ -23,6 +23,7 @@
  */
 package io.davidosemwota.core.network.responses
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -34,6 +35,7 @@ import com.google.gson.annotations.SerializedName
  * @param mediaUrl The lesson's video url.
  * @param chapterId The associated chapter's id.
  */
+@Keep
 data class ResponseLesson(
     val id: Int,
     val name: String,

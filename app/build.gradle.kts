@@ -10,6 +10,7 @@ import dependencies.BuildDependencies
 import extentions.addKotlinLibraries
 import extentions.addSharedLibraries
 import extentions.addNavigationLibraries
+import extentions.getLocalProperty
 import Modules.core
 
 plugins {
@@ -55,11 +56,34 @@ android {
         }
     }
 
+    signingConfigs {
+
+//        create(BuildType.debug) {
+//            keyAlias = getLocalProperty("signing.key.alias")
+//            keyPassword = getLocalProperty("signing.key.password")
+//            storeFile = file(getLocalProperty("signing.store.file"))
+//            storePassword = getLocalProperty("signing.store.password")
+//
+//            isV2SigningEnabled = true
+//        }
+
+        create(BuildType.release){
+            keyAlias = getLocalProperty("signing.key.alias")
+            keyPassword = getLocalProperty("signing.key.password")
+            storeFile = file(getLocalProperty("signing.store.file"))
+            storePassword = getLocalProperty("signing.store.password")
+
+            isV2SigningEnabled = true
+        }
+    }
+
     buildTypes {
 
         getByName(BuildType.release){
             isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
             isTestCoverageEnabled = BuildTypeRelease.isTestCoverageEnabled
+
+            signingConfig =  signingConfigs.getByName(BuildType.release)
             proguardFiles( getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
         }

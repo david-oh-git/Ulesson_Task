@@ -23,11 +23,14 @@
  */
 package io.davidosemwota.core.network.responses
 
+import androidx.annotation.Keep
+
 /**
  * Generic network from the fixer API.
  *
  * @param data Response from API.
  */
+@Keep
 data class UlessonApiResponse(
     val data: ResponseData
 )

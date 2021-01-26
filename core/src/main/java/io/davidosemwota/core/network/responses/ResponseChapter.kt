@@ -23,6 +23,8 @@
  */
 package io.davidosemwota.core.network.responses
 
+import androidx.annotation.Keep
+
 /**
  * Response format for a [ResponseChapter] from the API.
  *
@@ -30,6 +32,7 @@ package io.davidosemwota.core.network.responses
  * @param name The name of the chapter.
  * @param lessons A list of [ResponseLesson]s.
  */
+@Keep
 data class ResponseChapter(
     val id: Int,
     val name: String,

@@ -23,6 +23,8 @@
  */
 package io.davidosemwota.core.network.responses
 
+import androidx.annotation.Keep
+
 /**
  * Generic network from the fixer API.
  *
@@ -30,6 +32,7 @@ package io.davidosemwota.core.network.responses
  * @param message The message from API.
  * @param subjects A list of [ResponseSubject]s from the API.
  */
+@Keep
 data class ResponseData(
     val status: String?,
     val message: String?,
