@@ -25,10 +25,10 @@ object AppPlugins {
         const val build_tools = "4.1.2"
         const val kotlin = "1.4.21"
         const val spotless = "5.6.1"
-        const val ktlint = "0.39.0"
+        const val ktlint = "0.40.0"
         const val update_gradle_plugin = "0.36.0"
         const val nav_safe_args = "2.3.0"
-        const val dagger_hilt = "2.28-alpha"
+        const val dagger_hilt = "2.31.2-alpha"
     }
 
     const val dagger_hilt = "com.google.dagger:hilt-android-gradle-plugin:${Versions.dagger_hilt}"
