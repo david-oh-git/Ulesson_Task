@@ -1,4 +1,4 @@
-#Simple workflow for github Actions.
+# Simple workflow for github Actions.
 
 name: App push CI
 
