@@ -42,6 +42,17 @@ jobs:
 
       - name: Upload to artifacts
         uses: actions/upload-artifact@v2
+
         with:
           name: app
           path: app/build/outputs/universal_apk/debug/app-debug-universal.apk
+
+      - name: Create release
+        uses: underwindfall/create-release-with-debugapk@v2.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0
+          asset_path: app/build/outputs/universal_apk/debug/app-debug-universal.apk
+          asset_name: ulesson_debug.apk
+          asset_content_type: application/zip
