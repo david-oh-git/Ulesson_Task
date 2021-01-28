@@ -58,14 +58,14 @@ android {
 
     signingConfigs {
 
-//        create(BuildType.debug) {
-//            keyAlias = getLocalProperty("signing.key.alias")
-//            keyPassword = getLocalProperty("signing.key.password")
-//            storeFile = file(getLocalProperty("signing.store.file"))
-//            storePassword = getLocalProperty("signing.store.password")
-//
-//            isV2SigningEnabled = true
-//        }
+        getByName(BuildType.debug) {
+            keyAlias = "android"
+            keyPassword = "android"
+            storeFile = file("ulesson_debug.jks")
+            storePassword = "android"
+
+            isV2SigningEnabled = true
+        }
 
 //        create(BuildType.release){
 //            keyAlias = getLocalProperty("signing.key.alias")
@@ -93,6 +93,9 @@ android {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
             versionNameSuffix = BuildTypeDebug.versionNameSuffix
             isTestCoverageEnabled = BuildTypeDebug.isTestCoverageEnabled
+
+            signingConfig = signingConfigs.getByName(BuildType.debug)
+
         }
 
     }
